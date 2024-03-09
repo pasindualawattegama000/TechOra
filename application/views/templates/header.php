@@ -72,14 +72,14 @@
 
 <ul>
     <div class="nav-left">
-      <li><a class="active" href="#home">TechOra</a></li>
-      <li><a href="#home">Home</a></li>
-      <li><a href="#news">Ask Question</a></li>
-      <li><a href="#contact">Profile</a></li>
+      <li><a class="active" href="<?php echo site_url('home/index'); ?>">TechOra</a></li>
+      <li><a href="<?php echo site_url('home/index'); ?>">Home</a></li>
+      <li><a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
+      <li><a href="<?php echo site_url('users/profile'); ?>">Profile</a></li>
     </div>
     <div class="nav-center">
       <li>
-        <form method="get" action="">
+        <form method="get" action="<?php echo site_url('questions/searchQuestions'); ?>">
           <input type="text" name="search" placeholder="Search For Questions">
           <input type="submit" value="Search">
         </form>
@@ -87,8 +87,8 @@
     </div>
     <div class="nav-right">
 
-      <li><a href="#news">Login</a></li>
-      <li><a href="#contact">Signup</a></li>
+      <li><a href="<?php echo site_url('auth/login'); ?>">Login</a></li>
+      <li><a href="<?php echo site_url('auth/register'); ?>">Signup</a></li>
     </div>
 </ul>
 
