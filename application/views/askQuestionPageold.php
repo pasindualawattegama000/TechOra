@@ -99,6 +99,7 @@ body {
     opacity: 0.9;
 }
 
+
     </style>
 
     <!-- Include jQuery -->
@@ -139,29 +140,48 @@ body {
 
 
 <script>
-    // Backbone View for the form
-    var FormView = Backbone.View.extend({
-        el: '#askQuestionForm',
+    var QuestionModel = Backbone.Model.extend({
+        defaults: {
+            title: '',
+            body: '',
+            tags: '',
+            image: null
+        }
+    });
+
+    var QuestionView = Backbone.View.extend({
+        el: "#askQuestionForm",
         events: {
-            'submit': 'handleSubmit'
+            'submit': 'saveQuestion'
         },
-        handleSubmit: function(event) {
-            event.preventDefault(); // Prevent default form submission
 
-            var formData = new FormData(this.el); // Serialize form data
+        initialize: function(){
+            this.model = new QuestionModel();
+        },
 
-            // Send AJAX request to backend
+        saveQuestion: function(event){
+            event.preventDefault();
+            var title = this.$('#title').val();
+            var body = this.$('#body').val();
+            var tags = this.$('#tags').val();
+            var image = this.$('#image').val();
+
+            this.model.set({title: title, body: body, tags: tags, image: image});
+
+            // Send data to the server
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/Questions/post_questiontest', // Replace 'backend.php' with your PHP endpoint
+                url: 'http://localhost/TechOra/index.php/Questions/post_question',
                 type: 'POST',
-                data: formData,
-                processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Set content type to false for FormData
+                data: this.model.toJSON(),
+
                 success: function(response) {
-                    // Handle success response
-                    console.log('Fuck yea');
-                // Display message based on condition
-                var message = '';
+                    console.log('Data saved successfully');
+
+                    console.log('Condition:', response.condition);
+
+
+                    // Display message based on condition
+                    var message = '';
                     var color = '';
                     if (response.condition === 'A') {
                         message = 'Successfully Posted The Question';
@@ -169,12 +189,7 @@ body {
                     } else if (response.condition === 'B') {
                         message = 'Failed To Post Question... Please Try Again.';
                         color = 'red';
-                    } 
-                    else if (response.condition === 'D') {
-                        message = 'No user logged in';
-                        color = 'red';
-                    } 
-                    else {
+                    } else {
                         // Default message if condition is neither A nor B
                         message = 'Image Format Is Not Supported';
                         color = 'red';
@@ -187,18 +202,17 @@ body {
                         $('#message').hide();
                     }, 6000); // Hide message after 6 seconds
                 },
+
                 error: function(xhr, status, error) {
-                    // Handle error
-                    console.error(error);
+                    console.error('Error saving data:', error);
                 }
             });
-        }
+        },
+
+      
     });
 
-    // Instantiate the form view
-    var formView = new FormView();
-
-</script>
+    var questionView = new QuestionView();
 
 </body>
 </html>

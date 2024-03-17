@@ -1,9 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Question_model extends CI_Model {
+class QuestionModel extends CI_Model {
 
-    // ... other methods ...
+    public function __construct() {
+        parent::__construct();
+        $this->load->database();
+    }
 
     public function search_questions($search_term)
     {
@@ -14,4 +17,11 @@ class Question_model extends CI_Model {
 
         return $query->result();
     }
+
+
+    public function insert_question($data) {
+
+        return $this->db->insert('questions', $data);
+    }
+
 }

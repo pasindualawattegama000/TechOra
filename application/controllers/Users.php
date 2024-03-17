@@ -114,13 +114,6 @@ class Users extends CI_Controller {
 
             $checkLogin = $this->UserModel->getRows($con); 
 
-
-            // $param1 = 'hello';
-            // $param2 = 'world';
-            // $this->load->model('SessionData');
-            // $this->SessionData->get_data($param1, $param2);
-
-
             if($checkLogin){ 
 
                 $this->session->set_userdata('isUserLoggedIn', TRUE); 
