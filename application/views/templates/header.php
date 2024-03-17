@@ -31,7 +31,7 @@
         justify-content: center; /* Centers items in the middle */
     }
 
-    li a, li form {
+    li a,h4, li form {
         display: block;
         color: white;
         text-align: center;
@@ -58,32 +58,41 @@
     }
 
     li a:hover {
-        background-color: #111;
+        background-color: #FFF;
+        border-radius:20px;
+        color: black;
+        text-decoration: none;
     }
 
-        /* Make TechOra bold and bigger */
-        .nav-left > li:first-child a {
-        font-weight: bold; /* Makes the text bold */
-        font-size: 20px; /* Adjusts the size. Feel free to change this value */
-    }
+    .active-link {
+    border-bottom: 2px solid white; /* Adjust thickness as needed */
+}
+  
+.nav-item.active {
+  /* background-color: #4CAF50; */
+  border-bottom: 2px solid white;
+}
+
     </style>
 </head>
 <body>
 
+
 <ul>
     <div class="nav-left">
-      <li><a class="active" href="<?php echo site_url('home/index'); ?>">TechOra</a></li>
-      <li><a href="<?php echo site_url('home/index'); ?>">Home</a></li>
+      <li><h4>TechOra</h4></li>
+
+      <li class="nav-item <?= (current_url() == site_url('home/index')) ? 'active' : '' ?>"> <a href="<?php echo site_url('home/index'); ?>">Home</a></li>
 
       <?php if($this->session->userdata('isUserLoggedIn')): ?>
-            <li><a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
-            <li><a href="<?php echo site_url('users/profile'); ?>">Profile</a></li>
+            <li class="nav-item <?= (current_url() == site_url('questions/create')) ? 'active' : '' ?>"> <a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
+            <li class="nav-item <?= (current_url() == site_url('users/profile')) ? 'active' : '' ?>"> <a href="<?php echo site_url('users/profile'); ?>">Profile</a></li>
       <?php endif; ?>
     
 
     </div>
     <div class="nav-center">
-      <li>
+      <li class="nav-item <?= (current_url() == site_url('questions/searchQuestions')) ? 'active' : '' ?>">
         <form method="get" action="<?php echo site_url('questions/searchQuestions'); ?>">
           <input type="text" name="search" placeholder="Search For Questions">
           <input type="submit" value="Search">
@@ -93,16 +102,17 @@
     <div class="nav-right">
 
         <?php if($this->session->userdata('isUserLoggedIn')): ?>
-            <li><a href="#"><?php echo $this->session->userdata('userName'); ?></a></li>
-            <li><a href="<?php echo site_url('users/logout'); ?>">Logout</a></li>
+            <li><a href="<?php echo site_url('users/profile'); ?>"><?php echo $this->session->userdata('userName'); ?></a></li>
+            <li> <a href="<?php echo site_url('users/logout'); ?>">Logout</a></li>
             
         <?php else: ?>
-            <li><a href="<?php echo site_url('users/loadLogin'); ?>">Login</a></li>
-            <li><a href="<?php echo site_url('users/loadRegister'); ?>">Signup</a></li>
+          <li class="nav-item <?= (current_url() == site_url('users/loadLogin')) ? 'active' : '' ?>"><a href="<?php echo site_url('users/loadLogin'); ?>">Login</a></li>
+          <li class="nav-item <?= (current_url() == site_url('users/loadRegister')) ? 'active' : '' ?>"><a href="<?php echo site_url('users/loadRegister'); ?>">Signup</a></li>
         <?php endif; ?>
 
     </div>
 </ul>
+
 
 </body>
 </html>
