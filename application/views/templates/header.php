@@ -74,8 +74,13 @@
     <div class="nav-left">
       <li><a class="active" href="<?php echo site_url('home/index'); ?>">TechOra</a></li>
       <li><a href="<?php echo site_url('home/index'); ?>">Home</a></li>
-      <li><a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
-      <li><a href="<?php echo site_url('users/profile'); ?>">Profile</a></li>
+
+      <?php if($this->session->userdata('isUserLoggedIn')): ?>
+            <li><a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
+            <li><a href="<?php echo site_url('users/profile'); ?>">Profile</a></li>
+      <?php endif; ?>
+    
+
     </div>
     <div class="nav-center">
       <li>
@@ -87,8 +92,15 @@
     </div>
     <div class="nav-right">
 
-      <li><a href="<?php echo site_url('auth/login'); ?>">Login</a></li>
-      <li><a href="<?php echo site_url('auth/register'); ?>">Signup</a></li>
+        <?php if($this->session->userdata('isUserLoggedIn')): ?>
+            <li><a href="#"><?php echo $this->session->userdata('userName'); ?></a></li>
+            <li><a href="<?php echo site_url('users/logout'); ?>">Logout</a></li>
+            
+        <?php else: ?>
+            <li><a href="<?php echo site_url('users/loadLogin'); ?>">Login</a></li>
+            <li><a href="<?php echo site_url('users/loadRegister'); ?>">Signup</a></li>
+        <?php endif; ?>
+
     </div>
 </ul>
 

@@ -58,33 +58,130 @@
             background-color: #45a049;
         }
     </style>
+
+    <!-- Include jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <!-- Include Underscore.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
+    <!-- Include Backbone.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
+
+
 </head>
 <body>
     <div class="register-box">
         <h2 class="heading"> Login </h2>
 
-            <!-- Status message -->
-        <?php  
-            if(!empty($success_msg)){ 
-                echo '<p class="status-msg success">'.$success_msg.'</p>'; 
-            }elseif(!empty($error_msg)){ 
-                echo '<p class="status-msg error">'.$error_msg.'</p>'; 
-            } 
-        ?>
+         <!-- Status message -->
+        <div id="message" style="display: none; color: green;">Successfully Registered User!</div>
 
-        <form action="/register" method="post">
+
+        <form id="loginForm">
             <div class="form-field">
                 <label for="email">Email</label>
-                <input type="email" name="email" placeholder="" required>
+                <input type="email" id="email" name="email" placeholder="" required>
             </div>
             <div class="form-field">
                 <label for="password">Password</label>
-                <input type="password" name="password" placeholder="" required>
+                <input type="password" id="password" name="password" placeholder="" required>
             </div>
             <div class="form-field">
                 <input type="submit" value="Login">
             </div>
+            <p>Don't have an account? <a href="<?php echo site_url('Users/loadRegister'); ?>">Register Now</a></p>
         </form>
+
     </div>
+
+
+
+    <script>
+    var PersonModel = Backbone.Model.extend({
+        defaults: {
+            email: '',
+            password: ''
+        }
+    });
+
+    var PersonView = Backbone.View.extend({
+        el: "#loginForm",
+        events: {
+            'submit': 'savePerson'
+        },
+
+        initialize: function(){
+            this.model = new PersonModel();
+        },
+
+        savePerson: function(event){
+            event.preventDefault();
+            var email = this.$('#email').val();
+            var password = this.$('#password').val();
+
+            this.model.set({email: email, password: password});
+
+            // Send data to the server
+            $.ajax({
+                url: 'http://localhost/TechOra/index.php/Users/login',
+                type: 'POST',
+                data: this.model.toJSON(),
+
+                xhrFields: {
+                    withCredentials: true
+                 },
+
+                success: function(response) {
+                    console.log('Request successfull');
+
+                    console.log('Condition:', response.condition);
+
+                    console.log('Session Data:', response.sessionData);
+
+
+                    // Display message based on condition
+                    var message = '';
+                    var color = '';
+                    if (response.condition === 'A') {
+                        message = 'Successfully Logged in.';
+                        color = 'green';
+                        window.location.href = 'http://localhost/TechOra/index.php/home';
+                    } else if (response.condition === 'B') {
+                        message = 'Invalid Email or Password';
+                        color = 'red';
+                    } 
+
+                    
+
+                    $('#message').text(message).css('color', color).show();
+
+                    
+
+            
+                    setTimeout(function() {
+                        $('#message').hide();
+                    }, 10000); // Hide message after 6 seconds'
+
+                    
+            
+                },
+
+                error: function(xhr, status, error) {
+                    console.error('Error saving data:', error);
+                }
+            });
+        },
+
+      
+    });
+
+
+
+    var personView = new PersonView();
+    </script>
+
+
+
+
+
 </body>
 </html>

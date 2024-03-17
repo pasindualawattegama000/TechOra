@@ -65,52 +65,91 @@ class Users extends CI_Controller {
 
 
 
-    // public function login(){ 
-    //     $data = array(); 
+    public function login(){ 
+        // header("Access-Control-Allow-Origin: *");
+        // header("Access-Control-Allow-Origin: http://yourfrontenddomain.com");
+        // header("Access-Control-Allow-Credentials: true");
+
+        
+            // Check the origin of the request and set the 'Access-Control-Allow-Origin' header accordingly
+            // $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
+            // header("Access-Control-Allow-Origin: $origin");
+            // header("Access-Control-Allow-Credentials: true");
+            // header("Access-Control-Allow-Headers: Content-Type");
+            // ... rest of your code
+        
+        
+
          
-    //     // Get messages from the session 
-    //     if($this->session->userdata('success_msg')){ 
-    //         $data['success_msg'] = $this->session->userdata('success_msg'); 
-    //         $this->session->unset_userdata('success_msg'); 
-    //     } 
-    //     if($this->session->userdata('error_msg')){ 
-    //         $data['error_msg'] = $this->session->userdata('error_msg'); 
-    //         $this->session->unset_userdata('error_msg'); 
-    //     } 
+        // Unseting the session data
+        if($this->session->userdata('success_msg')){ 
+            $data['success_msg'] = $this->session->userdata('success_msg'); 
+            $this->session->unset_userdata('success_msg'); 
+        } 
+        if($this->session->userdata('error_msg')){ 
+            $data['error_msg'] = $this->session->userdata('error_msg'); 
+            $this->session->unset_userdata('error_msg'); 
+        } 
          
-    //     // If login request submitted 
-    //     if($this->input->post('loginSubmit')){ 
-    //         $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); 
-    //         $this->form_validation->set_rules('password', 'password', 'required'); 
-             
-    //         if($this->form_validation->run() == true){ 
-    //             $con = array( 
-    //                 'returnType' => 'single', 
-    //                 'conditions' => array( 
-    //                     'email'=> $this->input->post('email'), 
-    //                     'password' => md5($this->input->post('password')), 
-    //                     'status' => 1 
-    //                 ) 
-    //             ); 
-    //             $checkLogin = $this->user->getRows($con); 
-    //             if($checkLogin){ 
-    //                 $this->session->set_userdata('isUserLoggedIn', TRUE); 
-    //                 $this->session->set_userdata('userId', $checkLogin['id']); 
-    //                 redirect('users/account/'); 
-    //             }else{ 
-    //                 $data['error_msg'] = 'Wrong email or password, please try again.'; 
-    //             } 
-    //         }else{ 
-    //             $data['error_msg'] = 'Please fill all the mandatory fields.'; 
-    //         } 
-    //     } 
-         
-    //     // Load view 
-    //     $this->load->view('elements/header', $data); 
-    //     $this->load->view('users/login', $data); 
-    //     $this->load->view('elements/footer'); 
-    // } 
- 
+
+        $this->form_validation->set_rules('email', 'Email', 'required|valid_email'); 
+        $this->form_validation->set_rules('password', 'Password', 'required'); 
+
+
+        if($this->form_validation->run() == true){ 
+
+            $userData = array( 
+                'email' => strip_tags($this->input->post('email')), 
+                'password' => md5($this->input->post('password')) 
+            ); 
+
+            $con = array( 
+                'returnType' => 'single', 
+                'conditions' => array( 
+                    'email'=> $userData['email'], 
+                    'password' => ($userData['password']), 
+                    'status' => 1 
+                ) 
+            ); 
+
+            $checkLogin = $this->UserModel->getRows($con); 
+
+
+            // $param1 = 'hello';
+            // $param2 = 'world';
+            // $this->load->model('SessionData');
+            // $this->SessionData->get_data($param1, $param2);
+
+
+            if($checkLogin){ 
+
+                $this->session->set_userdata('isUserLoggedIn', TRUE); 
+                $this->session->set_userdata('userId', $checkLogin['id']); 
+                $this->session->set_userdata('userName',$checkLogin['first_name']);
+        
+                $responseData = array(
+                    'success' => true,
+                    'condition' => 'A',
+                    'message' => 'Success',
+                    'sessionData' => $this->session->userdata()
+                );
+                $this->output->set_content_type('application/json')->set_output(json_encode($responseData)); // Letting the frontend know that the Username and password does not match
+            }
+
+            else{
+                $responseData = array(
+                    'success' => true,
+                    'condition' => 'B',
+                    'message' => 'Success'
+                );
+                $this->output->set_content_type('application/json')->set_output(json_encode($responseData)); // Letting the frontend know that the Username and password does not match
+            
+            }
+
+
+        }
+        }
+
 
 
     public function registration(){ 
@@ -133,6 +172,7 @@ class Users extends CI_Controller {
         }
     
         // Form validation passed, proceed with registration
+
         $userData = array( 
             'first_name' => strip_tags($this->input->post('firstname')), 
             'last_name' => strip_tags($this->input->post('lastname')), 
@@ -158,18 +198,6 @@ class Users extends CI_Controller {
 
     } 
      
-
-
-
-    
-    // public function logout(){ 
-    //     $this->session->unset_userdata('isUserLoggedIn'); 
-    //     $this->session->unset_userdata('userId'); 
-    //     $this->session->sess_destroy(); 
-    //     redirect('users/login/'); 
-    // } 
-     
-     
     // Existing email check during validation 
     public function email_check($str){ 
         $con = array( 
@@ -185,5 +213,21 @@ class Users extends CI_Controller {
         }else{ 
             return TRUE; 
         } 
+    }
+
+    public function logout(){ 
+
+        $this->session->unset_userdata('isUserLoggedIn'); 
+        $this->session->unset_userdata('userId'); 
+        $this->session->unset_userdata('userName'); 
+        // $this->session->set_flashdata('success_msg', 'Successfully logged in.');
+        $this->session->sess_destroy(); 
+        // redirect('users/login2'); 
+        
+        $this->load->view('templates/header');
+        $this->load->view('auth/loginPage');
+        $this->load->view('templates/footer');
     } 
+    
+     
 }

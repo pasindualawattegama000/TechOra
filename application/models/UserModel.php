@@ -39,6 +39,8 @@ class UserModel extends CI_Model{
                  
                 $query = $this->db->get(); 
                 $result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
+
+        
             } 
         } 
          
