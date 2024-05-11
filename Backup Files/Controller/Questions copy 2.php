@@ -9,54 +9,9 @@ class Questions extends CI_Controller {
         $this->load->helper(array('form', 'url'));
     }
 
-    public function create()
-    {
-        $this->load->view('templates/header');
-        $this->load->view('askQuestionPage');
-        $this->load->view('templates/footer');
-    }
-
-
-    public function question_details($question_id) {
-        $this->QuestionModel->increment_views($question_id);
-        // Load the AnswerModel to fetch answers
-        $this->load->model('AnswerModel');
-        
-        // Fetch question details using the QuestionModel
-        $data['question'] = $this->QuestionModel->get_question_by_id($question_id);
-        
-        // Fetch answers using the AnswerModel
-        $data['answers'] = $this->AnswerModel->get_answers_by_question_id($question_id);
-        
-        // Load the question details view
-        $this->load->view('templates/header');
-        $this->load->view('questionDetails', $data); // Adjust the view name as needed
-        $this->load->view('templates/footer');
-    }
-
-
-
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    // SEARCH QUESTIONS
-
-    public function searchQuestions() {
-        // Get the search term from the GET request
-        $search_term = $this->input->get('search', TRUE);
-        $data['searchedFor'] = $search_term;
-
-        // Perform the search
-        $data['results'] = $this->QuestionModel->search_questions($search_term);
-
-        // Load the search results view
-        $this->load->view('templates/header');
-        $this->load->view('search_results', $data);
-        $this->load->view('templates/footer');
-    }
-
 
     
-    
-    public function post_questiontest(){
+    public function postQuestion(){
 
         $userId = $this->session->userdata('userId');
         if (!$userId) {

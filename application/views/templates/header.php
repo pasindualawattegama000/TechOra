@@ -93,8 +93,8 @@
 
     </div>
     <div class="nav-center">
-      <li class="nav-item <?= (current_url() == site_url('questions/searchQuestions')) ? 'active' : '' ?>">
-        <form method="get" action="<?php echo site_url('questions/searchQuestions'); ?>">
+      <li class="nav-item <?= (current_url() == site_url('search/Questions')) ? 'active' : '' ?>">
+        <form method="get" action="<?php echo site_url('search/Questions'); ?>">
           <input type="text" name="search" placeholder="Search For Questions">
           <input type="submit" value="Search">
         </form>

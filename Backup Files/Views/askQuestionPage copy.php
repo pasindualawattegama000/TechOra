@@ -137,6 +137,7 @@ body {
     </div>
 </form>
 
+
 <script>
     // Backbone View for the form
     var FormView = Backbone.View.extend({
@@ -149,36 +150,47 @@ body {
 
             var formData = new FormData(this.el); // Serialize form data
 
-            // Send AJAX request to the RESTful backend endpoint
+            // Send AJAX request to backend
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/api/Questions/postQuestion', // Correct endpoint for RESTful API
+                // ++++++++++++++++++++++++++++++++++++++++DANGER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+                url: 'http://localhost/TechOra/index.php/Questions/postQuestion', // Replace 'backend.php' with your PHP endpoint
                 type: 'POST',
                 data: formData,
                 processData: false, // Prevent jQuery from processing the data
                 contentType: false, // Set content type to false for FormData
                 success: function(response) {
-                    // Display the appropriate message from the response
-                    var message = response.message;
-                    var color = response.status ? 'green' : 'red'; // Color code based on success or failure
+                    // Handle success response
+                    // console.log('Fuck yea');
+                // Display message based on condition
+                var message = '';
+                    var color = '';
+                    if (response.condition === 'A') {
+                        message = 'Successfully Posted The Question';
+                        color = 'green';
+                    } else if (response.condition === 'B') {
+                        message = 'Failed To Post Question... Please Try Again.';
+                        color = 'red';
+                    } 
+                    else if (response.condition === 'D') {
+                        message = 'No user logged in';
+                        color = 'red';
+                    } 
+                    else {
+                        // Default message if condition is neither A nor B
+                        message = 'Image Format Is Not Supported';
+                        color = 'red';
+                    }
 
                     $('#message').text(message).css('color', color).show();
 
+
                     setTimeout(function() {
                         $('#message').hide();
-                        if (response.status) {
-                            // Optionally redirect or perform further actions on success
-                           // window.location.href = 'http://localhost/TechOra/where_to_go_next';
-                        }
                     }, 6000); // Hide message after 6 seconds
                 },
                 error: function(xhr, status, error) {
                     // Handle error
-                    console.error('Error: ' + error);
-                    $('#message').text('Failed to process your request. Please try again.').css('color', 'red').show();
-
-                    setTimeout(function() {
-                        $('#message').hide();
-                    }, 6000);
+                    console.error(error);
                 }
             });
         }
@@ -186,6 +198,7 @@ body {
 
     // Instantiate the form view
     var formView = new FormView();
+
 </script>
 
 </body>

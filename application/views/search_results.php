@@ -52,7 +52,7 @@
             <?php foreach ($results as $result): ?>
                 <div class="result">
                     <h3 class="result-title">
-                        <a href="<?php echo site_url('questions/question_details/' . $result['question_id']); ?>">
+                        <a href="<?php echo site_url('QuestionDetails/loadQuestionDetails/' . $result['question_id']); ?>">
                             <?php echo $result['title']; ?>
                         </a>
                     </h3>

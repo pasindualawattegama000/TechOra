@@ -190,7 +190,7 @@
                 successMessage.textContent = data.message; // Display the message from the server
                 successMessage.style.display = 'block'; // Make the success message visible
                 successMessage.style.color = 'green';
-                
+                location.reload();
             })
             .catch(error => {
                 console.error('Error:', error);
@@ -201,7 +201,7 @@
         };
 
         function voteOnQuestion(questionId, direction) {
-            fetch(`<?= site_url('questions/voteOnQuestion/') ?>${questionId}/${direction}`, {
+            fetch(`<?= site_url('api/questions/voteOnQuestion/') ?>${questionId}/${direction}`, {
                 method: 'POST',
             })
             .then(response => response.json())
@@ -212,7 +212,9 @@
                     let currentVoteCount = parseInt(voteCountSpan.innerText);
                     voteCountSpan.innerText = direction === 'up' ? currentVoteCount + 1 : currentVoteCount - 1;
                 } else {
+                    location.reload();
                     alert(data.message);
+                    
                 }
             })
             .catch(error => console.error('Error:', error));
@@ -229,10 +231,13 @@
                     const voteCountSpan = document.getElementById(`answer-vote-count-${answerId}`);
                     let currentVoteCount = parseInt(voteCountSpan.innerText);
                     voteCountSpan.innerText = direction === 'up' ? currentVoteCount + 1 : currentVoteCount - 1;
-                    window.location.reload();
-                    alert(data.message);
+                    
+                    console.log('reload here');
+                    location.reload();
                     
                 } else {
+                    console.log('reload here');
+                    location.reload();
                     alert(data.message);
                 }
             })
@@ -249,9 +254,11 @@
             .then(data => {
                 if (data.status === 'success') {
                     document.getElementById(`answer-${answerId}`).classList.add('accepted-answer');
-                    alert(questionId);
+                    
+                    location.reload();
                     
                 } else {
+                    location.reload();
                     alert(data.message);
                 }
             })
@@ -267,7 +274,10 @@
                 if (data.status === 'success') {
 
                     document.getElementById(`answer-${answerId}`).classList.remove('accepted-answer');
+                    location.reload();
+                
                 } else {
+                    location.reload();
                     alert(data.message);
                 }
             })

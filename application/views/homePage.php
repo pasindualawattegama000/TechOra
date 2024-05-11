@@ -82,7 +82,7 @@
 
         var QuestionsCollection = Backbone.Collection.extend({
             model: Question,
-            url: 'http://localhost/TechOra/index.php/Questions/fetch_filtered_questions',  // Adjust this to match your CI URL structure
+            url: 'http://localhost/TechOra/index.php/api/Questions/filterQuestions', 
 
             filterQuestions: function(filterType) {
                 this.fetch({
@@ -121,7 +121,7 @@
                         ${answeredSpan}
                     </div>
                     <h2 class="question-title">
-                        <a href="http://localhost/TechOra/index.php/questions/question_details/${question.get('question_id')}">${question.get('title')}</a>
+                        <a href="http://localhost/TechOra/index.php/QuestionDetails/loadQuestionDetails/${question.get('question_id')}">${question.get('title')}</a>
                     </h2>
                     <p class="question-content">${question.get('body')}</p>
                     <div class="question-footer">
