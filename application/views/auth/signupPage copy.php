@@ -134,16 +134,32 @@
 
             // Send data to the server
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/api/Users/registration',
+                url: 'http://localhost/TechOra/index.php/Users/registration',
                 type: 'POST',
                 data: this.model.toJSON(),
 
                 success: function(response) {
                     console.log('Data saved successfully');
-                    console.log('Condition:', response.message);
 
-                    var color = 'green';
-                    $('#message').text(response.message).css('color', color).show();
+                    console.log('Condition:', response.condition);
+
+
+                    // Display message based on condition
+                    var message = '';
+                    var color = '';
+                    if (response.condition === 'A') {
+                        message = 'Username Already exists';
+                        color = 'red';
+                    } else if (response.condition === 'B') {
+                        message = 'Successfully Registered';
+                        color = 'green';
+                    } else {
+                        // Default message if condition is neither A nor B
+                        message = 'Unknown condition';
+                        color = 'black';
+                    }
+
+                    $('#message').text(message).css('color', color).show();
 
 
                     setTimeout(function() {
@@ -152,23 +168,8 @@
                 },
 
                 error: function(xhr, status, error) {
-
-
-                    var message = '';
-                    var color = '';
-
-                    if (error === 'Bad Request') {
-                        message = 'Username Already exists';
-                        color = 'red';
-                
-                    } else {
-                        // Default message if condition is neither A nor B
-                        message = 'Failed to register user.';
-                        color = 'black';
-                    }
-                
-                $('#message').text('Registration failed: ' + message).css('color', 'red').show();
-            }
+                    console.error('Error saving data:', error);
+                }
             });
         },
 

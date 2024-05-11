@@ -174,6 +174,37 @@ class Questions extends CI_Controller {
     // ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //VOTING
 
+    // INITIAL VOTING
+    
+    // public function voteOnQuestion($question_id, $type) {
+    //     $user_id = $this->session->userdata('userId');
+    //     if (!$user_id) {
+    //         echo json_encode(['status' => 'error', 'message' => 'User not logged in']);
+    //         return;
+    //     }
+
+    //     if ($this->QuestionModel->hasUserVotedOnQuestion($user_id, $question_id)) {
+
+    //         echo json_encode(['status' => 'error', 'message' => 'User has already voted']);
+    //         return;
+    //     }
+
+    //     if ($type == 'up') {
+    //         $this->QuestionModel->icriQuestVotes($question_id);
+    //     } elseif (type == 'down') {
+    //         $this->QuestionModel->decQuestVotes($question_id);
+    //     }
+
+    //     // Record the user's vote
+    //     $this->QuestionModel->recordUserVoteOnQuestion($user_id, $question_id, $type);
+
+    //     echo json_encode(['status' => 'success', 'message' => 'Vote updated']);
+    // }
+
+    //+++++++++++++
+    //REFINED VOTING
+
+
     public function voteOnQuestion($question_id, $type) {
         $user_id = $this->session->userdata('userId');
         if (!$user_id) {
@@ -196,6 +227,10 @@ class Questions extends CI_Controller {
         }
     }
     
+
+
+
+
 
 }
     

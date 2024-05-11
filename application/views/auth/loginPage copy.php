@@ -3,10 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+    <title>Login</title>
     <style>
         body, html {
+            /* height: 100%;
+            margin: 0; */
+            /* font-family: Arial, sans-serif; */
             background-color: #F5F5F5;
+            /* display: flex;
+            justify-content: center;
+            align-items: center; */
         }
 
         .register-box {
@@ -60,61 +66,45 @@
     <!-- Include Backbone.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 
+
 </head>
-
-
 <body>
     <div class="register-box">
-        <h2 class="heading"> Register </h2>
+        <h2 class="heading"> Login </h2>
 
-        <!-- Status message -->
-        
+         <!-- Status message -->
         <div id="message" style="display: none; color: green;">Successfully Registered User!</div>
 
-        <form id = "registerForm">
-            <div class="form-field">
-                <label for="first_name">First Name</label>
-                <input type="text" id="first_name" name="first_name" placeholder="" required>
-            </div>
 
-            <div class="form-field">
-                <label for="last_name">Surname</label>
-                <input type="text" id="last_name" name="last_name" placeholder=""  required>
-            </div>
-
+        <form id="loginForm">
             <div class="form-field">
                 <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder=""  required>
+                <input type="email" id="email" name="email" placeholder="" required>
             </div>
-
             <div class="form-field">
                 <label for="password">Password</label>
                 <input type="password" id="password" name="password" placeholder="" required>
             </div>
-
-
             <div class="form-field">
-                <input type="submit" name="signupSubmit" value="Register">
+                <input type="submit" value="Login">
             </div>
-            <p>Already have an account? <a href="<?php echo site_url('Users/loadLogin'); ?>">Login here</a></p>
+            <p>Don't have an account? <a href="<?php echo site_url('Users/loadRegister'); ?>">Register Now</a></p>
         </form>
-        
+
     </div>
 
 
-    
+
     <script>
     var PersonModel = Backbone.Model.extend({
         defaults: {
-            firstname: '',
-            lastname: '',
             email: '',
             password: ''
         }
     });
 
     var PersonView = Backbone.View.extend({
-        el: "#registerForm",
+        el: "#loginForm",
         events: {
             'submit': 'savePerson'
         },
@@ -125,58 +115,73 @@
 
         savePerson: function(event){
             event.preventDefault();
-            var firstname = this.$('#first_name').val();
-            var lastname = this.$('#last_name').val();
             var email = this.$('#email').val();
             var password = this.$('#password').val();
 
-            this.model.set({firstname: firstname, lastname: lastname, email: email, password: password});
+            this.model.set({email: email, password: password});
 
             // Send data to the server
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/api/Users/registration',
+                url: 'http://localhost/TechOra/index.php/Users/login',
                 type: 'POST',
                 data: this.model.toJSON(),
 
+                xhrFields: {
+                    withCredentials: true
+                 },
+
                 success: function(response) {
-                    console.log('Data saved successfully');
-                    console.log('Condition:', response.message);
+                    console.log('Request successfull');
 
-                    var color = 'green';
-                    $('#message').text(response.message).css('color', color).show();
+                    console.log('Condition:', response.condition);
+
+                    console.log('Session Data:', response.sessionData);
 
 
+                    // Display message based on condition
+                    var message = '';
+                    var color = '';
+                    if (response.condition === 'A') {
+                        message = 'Successfully Logged in.';
+                        color = 'green';
+                        window.location.href = 'http://localhost/TechOra/index.php/home';
+                    } else if (response.condition === 'B') {
+                        message = 'Invalid Email or Password';
+                        color = 'red';
+                    } 
+
+                    
+
+                    $('#message').text(message).css('color', color).show();
+
+                    
+
+            
                     setTimeout(function() {
                         $('#message').hide();
-                    }, 6000); // Hide message after 6 seconds
+                    }, 10000); // Hide message after 6 seconds'
+
+                    
+            
                 },
 
                 error: function(xhr, status, error) {
-
-
-                    var message = '';
-                    var color = '';
-
-                    if (error === 'Bad Request') {
-                        message = 'Username Already exists';
-                        color = 'red';
-                
-                    } else {
-                        // Default message if condition is neither A nor B
-                        message = 'Failed to register user.';
-                        color = 'black';
-                    }
-                
-                $('#message').text('Registration failed: ' + message).css('color', 'red').show();
-            }
+                    console.error('Error saving data:', error);
+                }
             });
         },
 
       
     });
 
+
+
     var personView = new PersonView();
-</script>
+    </script>
+
+
+
+
 
 </body>
 </html>

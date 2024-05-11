@@ -104,11 +104,11 @@
 
         <?php if($this->session->userdata('isUserLoggedIn')): ?>
             <li><a href="<?php echo site_url('profile/index'); ?>"><?php echo $this->session->userdata('userName'); ?></a></li>
-            <li> <a href="<?php echo site_url('auth/logout'); ?>">Logout</a></li>
+            <li> <a href="<?php echo site_url('users/logout'); ?>">Logout</a></li>
             
         <?php else: ?>
-          <li class="nav-item <?= (current_url() == site_url('auth/loadLogin')) ? 'active' : '' ?>"><a href="<?php echo site_url('auth/loadLogin'); ?>">Login</a></li>
-          <li class="nav-item <?= (current_url() == site_url('auth/loadRegister')) ? 'active' : '' ?>"><a href="<?php echo site_url('auth/loadRegister'); ?>">Signup</a></li>
+          <li class="nav-item <?= (current_url() == site_url('users/loadLogin')) ? 'active' : '' ?>"><a href="<?php echo site_url('users/loadLogin'); ?>">Login</a></li>
+          <li class="nav-item <?= (current_url() == site_url('users/loadRegister')) ? 'active' : '' ?>"><a href="<?php echo site_url('users/loadRegister'); ?>">Signup</a></li>
         <?php endif; ?>
 
     </div>

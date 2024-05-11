@@ -152,6 +152,7 @@ body {
 
             // Send AJAX request to backend
             $.ajax({
+                // ++++++++++++++++++++++++++++++++++++++++DANGER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
                 url: 'http://localhost/TechOra/index.php/Questions/post_questiontest', // Replace 'backend.php' with your PHP endpoint
                 type: 'POST',
                 data: formData,
@@ -159,7 +160,7 @@ body {
                 contentType: false, // Set content type to false for FormData
                 success: function(response) {
                     // Handle success response
-                    console.log('Fuck yea');
+                    // console.log('Fuck yea');
                 // Display message based on condition
                 var message = '';
                     var color = '';

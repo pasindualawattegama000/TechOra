@@ -66,21 +66,7 @@ class Users extends CI_Controller {
 
 
     public function login(){ 
-        // header("Access-Control-Allow-Origin: *");
-        // header("Access-Control-Allow-Origin: http://yourfrontenddomain.com");
-        // header("Access-Control-Allow-Credentials: true");
 
-        
-            // Check the origin of the request and set the 'Access-Control-Allow-Origin' header accordingly
-            // $origin = isset($_SERVER['HTTP_ORIGIN']) ? $_SERVER['HTTP_ORIGIN'] : '*';
-            // header("Access-Control-Allow-Origin: $origin");
-            // header("Access-Control-Allow-Credentials: true");
-            // header("Access-Control-Allow-Headers: Content-Type");
-            // ... rest of your code
-        
-        
-
-         
         // Unseting the session data
         if($this->session->userdata('success_msg')){ 
             $data['success_msg'] = $this->session->userdata('success_msg'); 

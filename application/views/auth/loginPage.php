@@ -94,7 +94,6 @@
     </div>
 
 
-
     <script>
     var PersonModel = Backbone.Model.extend({
         defaults: {
@@ -122,61 +121,47 @@
 
             // Send data to the server
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/Users/login',
+                url: 'http://localhost/TechOra/index.php/api/Users/login',
                 type: 'POST',
                 data: this.model.toJSON(),
 
-                xhrFields: {
-                    withCredentials: true
-                 },
-
                 success: function(response) {
                     console.log('Request successfull');
+                    // console.log('Condition:', response.condition);
+                    // console.log('Session Data:', response.sessionData);
 
-                    console.log('Condition:', response.condition);
-
-                    console.log('Session Data:', response.sessionData);
-
-
-                    // Display message based on condition
-                    var message = '';
-                    var color = '';
-                    if (response.condition === 'A') {
-                        message = 'Successfully Logged in.';
-                        color = 'green';
-                        window.location.href = 'http://localhost/TechOra/index.php/home';
-                    } else if (response.condition === 'B') {
-                        message = 'Invalid Email or Password';
-                        color = 'red';
-                    } 
-
+                    $('#message').text(response.message).css('color', 'green').show();
                     
-
-                    $('#message').text(message).css('color', color).show();
-
-                    
-
+                    window.location.href = 'http://localhost/TechOra/index.php/home';
             
                     setTimeout(function() {
                         $('#message').hide();
-                    }, 10000); // Hide message after 6 seconds'
-
-                    
-            
+                    }, 10000); 
                 },
 
                 error: function(xhr, status, error) {
-                    console.error('Error saving data:', error);
+
+                    var message = '';
+                    var color = '';
+
+                    if (error === 'Unauthorized') {
+                        message = 'Invalid Email or Password';
+                        color = 'red';
+                
+                    } else {
+                        message = 'Validation Errors';
+                        color = 'black';
+                    }
+                
+                $('#message').text('Registration failed: ' + message).css('color', 'red').show();
                 }
             });
         },
-
-      
     });
 
-
-
     var personView = new PersonView();
+
+
     </script>
 
 
