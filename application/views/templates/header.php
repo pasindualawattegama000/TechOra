@@ -85,8 +85,8 @@
       <li class="nav-item <?= (current_url() == site_url('home/index')) ? 'active' : '' ?>"> <a href="<?php echo site_url('home/index'); ?>">Home</a></li>
 
       <?php if($this->session->userdata('isUserLoggedIn')): ?>
-            <li class="nav-item <?= (current_url() == site_url('questions/create')) ? 'active' : '' ?>"> <a href="<?php echo site_url('questions/create'); ?>">Ask Question</a></li>
-            <li class="nav-item <?= (current_url() == site_url('profile/index')) ? 'active' : '' ?>"> <a href="<?php echo site_url('profile/index'); ?>">Profile</a></li>
+            <li class="nav-item <?= (current_url() == site_url('navigation/loadPostQuestions')) ? 'active' : '' ?>"> <a href="<?php echo site_url('navigation/loadPostQuestions'); ?>">Ask Question</a></li>
+            <li class="nav-item <?= (current_url() == site_url('navigation/loadProfile')) ? 'active' : '' ?>"> <a href="<?php echo site_url('navigation/loadProfile'); ?>">Profile</a></li>
            
       <?php endif; ?>
    
@@ -103,12 +103,12 @@
     <div class="nav-right">
 
         <?php if($this->session->userdata('isUserLoggedIn')): ?>
-            <li><a href="<?php echo site_url('profile/index'); ?>"><?php echo $this->session->userdata('userName'); ?></a></li>
-            <li> <a href="<?php echo site_url('auth/logout'); ?>">Logout</a></li>
+            <li><a href="<?php echo site_url('navigation/loadProfile'); ?>"><?php echo $this->session->userdata('userName'); ?></a></li>
+            <li> <a href="<?php echo site_url('navigation/logout'); ?>">Logout</a></li>
             
         <?php else: ?>
-          <li class="nav-item <?= (current_url() == site_url('auth/loadLogin')) ? 'active' : '' ?>"><a href="<?php echo site_url('auth/loadLogin'); ?>">Login</a></li>
-          <li class="nav-item <?= (current_url() == site_url('auth/loadRegister')) ? 'active' : '' ?>"><a href="<?php echo site_url('auth/loadRegister'); ?>">Signup</a></li>
+          <li class="nav-item <?= (current_url() == site_url('navigation/loadLogin')) ? 'active' : '' ?>"><a href="<?php echo site_url('navigation/loadLogin'); ?>">Login</a></li>
+          <li class="nav-item <?= (current_url() == site_url('navigation/loadRegister')) ? 'active' : '' ?>"><a href="<?php echo site_url('navigation/loadRegister'); ?>">Signup</a></li>
         <?php endif; ?>
 
     </div>

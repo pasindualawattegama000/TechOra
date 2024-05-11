@@ -151,8 +151,8 @@ class AnswerModel extends CI_Model {
 
     public function delete_answer($answer_id) {
         $this->db->where('answer_id', $answer_id);
-        $this->db->delete('answers');
+        $result = $this->db->delete('answers');
+        return $result; 
     }
-
 
 }

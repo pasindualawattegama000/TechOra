@@ -91,42 +91,31 @@
     </div>
 
     <script>
-       $(document).ready(function () {
-        $(".delete-question").click(function () {
-            var questionDiv = $(this).closest(".question");
-            var questionId = questionDiv.data("question-id");
-            $.ajax({
-                url: "<?php echo site_url('api/profile/deleteQuestion'); ?>/" + questionId,
-                type: "DELETE",
-                success: function (response) {
-                    questionDiv.remove();
-                    alert(response.message);
-                },
-                error: function (xhr) {
-                    alert("Failed to delete question");
-                }
+        $(document).ready(function () {
+            $(".delete-question").click(function () {
+                var questionDiv = $(this).closest(".question");
+                var questionId = questionDiv.data("question-id");
+                $.ajax({
+                    url: "<?php echo site_url('profile/delete_question'); ?>/" + questionId,
+                    type: "DELETE",
+                    success: function (response) {
+                        questionDiv.remove();
+                    }
+                });
+            });
+
+            $(".delete-answer").click(function () {
+                var answerDiv = $(this).closest(".answer");
+                var answerId = answerDiv.data("answer-id");
+                $.ajax({
+                    url: "<?php echo site_url('profile/delete_answer'); ?>/" + answerId,
+                    type: "DELETE",
+                    success: function (response) {
+                        answerDiv.remove();
+                    }
+                });
             });
         });
-
-        $(".delete-answer").click(function () {
-            var answerDiv = $(this).closest(".answer");
-            var answerId = answerDiv.data("answer-id");
-            $.ajax({
-                url: "<?php echo site_url('api/profile/deleteAnswer'); ?>/" + answerId,
-                type: "DELETE",
-                success: function (response) {
-                    console.log("success");
-                    answerDiv.remove();
-                    alert(response.message);
-                },
-                error: function (xhr) {
-    
-                    alert("Failed to delete answer");
-                }
-            });
-        });
-    });
-
     </script>
 </body>
 </html>

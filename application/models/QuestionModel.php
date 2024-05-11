@@ -292,8 +292,10 @@ class QuestionModel extends CI_Model {
 
     public function delete_question($question_id) {
         $this->db->where('question_id', $question_id);
-        $this->db->delete('questions');
+        $result = $this->db->delete('questions');
+        return $result; 
     }
+    
 
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //
