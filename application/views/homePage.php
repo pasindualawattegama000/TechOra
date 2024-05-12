@@ -60,15 +60,19 @@
         #filter-buttons {
             /* background-color: #f5f5f5;
             border: 2px solid #bbb; */
-            padding-left: 20px;
+            padding-left: 79%;
             /* margin: 20px; */
+           
         }
+
     </style>
 </head>
 <body>
     <div id="welcome-section">
         <h1 class="welcome">Welcome To TechOra</h1>
     </div>
+
+    <div class="container">
 
     <div id="filter-buttons">
         <button id="filter-latest">Latest</button>
@@ -77,7 +81,7 @@
     </div>
 
     <div id="question-section"></div>
-
+    <div>
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>

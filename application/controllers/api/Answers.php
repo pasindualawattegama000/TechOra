@@ -50,31 +50,6 @@ class Answers extends RestController {
         }
     }
 
-    // endpoint for voting on an answer
-    public function voteOnAnswer_post($answer_id, $type) {
-        $user_id = $this->session->userdata('userId');
-        // Ensure user is logged in before proceeding
-        if (!$user_id) {
-            $this->response(['status' => FALSE, 'message' => 'User not logged in'], RestController::HTTP_UNAUTHORIZED);
-            return;
-        }
-
-        // Checking existing votes prevent duplicate voting
-        $currentVote = $this->AnswerModel->checkUserVote($user_id, $answer_id);
-        if ($currentVote) {
-          
-            if ($currentVote === $type) {
-                $this->response(['status' => FALSE, 'message' => 'You have already voted'], RestController::HTTP_BAD_REQUEST);
-            } else {
-                $this->AnswerModel->updateUserVote($user_id, $answer_id, $type);
-                $this->response(['status' => TRUE, 'message' => 'Vote changed successfully'], RestController::HTTP_OK);
-            }
-        } else {
-    
-            $this->AnswerModel->recordUserVoteOnAnswer($user_id, $answer_id, $type);
-            $this->response(['status' => TRUE, 'message' => 'Vote recorded successfully'], RestController::HTTP_OK);
-        }
-    }
 
     // endpoint for accepting an answer
     public function acceptAnswer_post($answer_id, $question_id) {

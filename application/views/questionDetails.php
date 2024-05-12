@@ -4,6 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Question Details | TechOra</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <!-- <script src="https://kit.fontawesome.com/e587f2d61a.js" crossorigin="anonymous"></script> -->
     <style>
         #question-details, #answers, #post-answer {
             background-color: #fff;
@@ -65,8 +68,31 @@
         }
 
         .vote-btn {
-            background-color: #f0ad4e;
-            color: white;
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .vote-btnQ {
+            border: none;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .vote-btn img{
+            margin-bottom: 0px;
+        }
+
+        .vote-btnQ img{
+            margin-bottom: 10px;
         }
 
         .vote-btn:hover {
@@ -96,7 +122,7 @@
             color: green;
             margin: 10px 20px;
             text-align: center;
-            display: none; /* Hidden by default */
+            display: none; 
         }
 
         .isAnswered{
@@ -104,55 +130,85 @@
         }
 
         .accepted-answer {
-            background-color: #e0ffe0; /* Light green background */
-            border-left: 5px solid #4CAF50; /* Darker green left border */
+            background-color: #e0ffe0; 
+            border-left: 5px solid #4CAF50; 
             padding: 10px;
         }
+
+        .question-footer span{
+            padding-right: 20px;
+            font-size: 14px;
+        }
+
+        h6 {
+            font-weight: normal; 
+        }
+
+   
 
 
     </style>
 </head>
 <body>
-<div id="question-details">
 
-        <h2>Question</h2>
-        <?php if ($question['is_answered']== 1): ?>
-            <span class="isAnswered" >✔ Answered</span>
-            
-        <?php endif; ?>
+    <div id="question-details">
+
+        <p>Asked by: <?= $question['first_name'] . ' ' . $question['last_name'] ?></p>
+
+       
+        <div class="voting">
+            <button class="vote-btnQ" onclick="voteOnQuestion(<?= $question['question_id'] ?>, 'up')"> <img src="<?= base_url('assets/images/up.png'); ?>" alt="Click Me" style="width: 20px; height: 20px;"></button>
+            <span id="question-vote-count"><?= $question['votes'] ?></span>
+            <button class="vote-btnQ" onclick="voteOnQuestion(<?= $question['question_id'] ?>, 'down')"><img src="<?= base_url('assets/images/down.png'); ?>" alt="Click Me" style="width: 20px; height: 20px;"></button>
+        </div>
+
+        <h1><?= $question['title'] ?></h1>
+        <br>
+        <div class="question-footer">
+            <span class="answers"><?= $question['answer_count'] ?> Answers</span>
+            <span class="views"><?= $question['views'] ?> Views</span>
+            <span class="votes"><?= $question['votes'] ?> Votes</span>
+            <span class="posted-date">Posted on: <?= $question['asked_dt'] ?></span>
+
+            <span class="is-answered">
+                <?php if ($question['is_answered']== 1): ?>
+                    ✔ Answered
+                <?php endif; ?>
+            </span>
+        </div>
+
         <hr>
 
-        <div class="voting">
-            <button class="vote-btn" onclick="voteOnQuestion(<?= $question['question_id'] ?>, 'up')">Upvote</button>
-            <span id="question-vote-count"><?= $question['votes'] ?></span>
-            <button class="vote-btn" onclick="voteOnQuestion(<?= $question['question_id'] ?>, 'down')">Downvote</button>
-        </div>
-        <h1><?= htmlspecialchars($question['title'], ENT_QUOTES, 'UTF-8') ?></h1>
-        <p>Asked by: <?= htmlspecialchars($question['first_name'] . ' ' . $question['last_name'], ENT_QUOTES, 'UTF-8') ?></p>
-
-
-        <p><?= nl2br(htmlspecialchars($question['body'], ENT_QUOTES, 'UTF-8')) ?></p>
+        <h6><?= $question['body']?></h6>
+        
         <?php if (!empty($question['image_path'])): ?>
             <img src="<?= base_url($question['image_path']) ?>" alt="Question Image">
         <?php endif; ?>
+        
     </div>
+
+
 
     <section id="answers">
     <h2>Answers</h2>
-    <?php foreach ($answers as $answer): ?>
+    <?php foreach ($answers as $index => $answer): ?>
         <article class="answer <?= $answer['is_accepted'] ? 'accepted-answer' : '' ?>" id="answer-<?= $answer['answer_id'] ?>">
+            <h5>Answer <?= $index + 1 ?></h5> <!-- Display answer count -->
+            <?php if ($answer['is_accepted']): ?>
+                <p><strong>✔ Accepted Answer</strong></p>
+            <?php endif; ?>
             <div class="voting">
-                <button class="vote-btn" onclick="voteOnAnswer(<?= $answer['answer_id'] ?>, 'up')">Upvote</button>
+                <button class="vote-btn" onclick="voteOnAnswer(<?= $answer['answer_id'] ?>, 'up')"><img src="<?= base_url('assets/images/up.png'); ?>" alt="Upvote" style="width: 20px; height: 20px;"></button>
                 <span id="answer-vote-count-<?= $answer['answer_id'] ?>"><?= $answer['votes'] ?></span>
-                <button class="vote-btn" onclick="voteOnAnswer(<?= $answer['answer_id'] ?>, 'down')">Downvote</button>
+                <button class="vote-btn" onclick="voteOnAnswer(<?= $answer['answer_id'] ?>, 'down')"><img src="<?= base_url('assets/images/down.png'); ?>" alt="Downvote" style="width: 20px; height: 20px;"></button>
             </div>
-            <p>Answered by: <?= htmlspecialchars($answer['first_name'] . ' ' . $answer['last_name'], ENT_QUOTES, 'UTF-8') ?></p>
-            <p><?= nl2br(htmlspecialchars($answer['body'], ENT_QUOTES, 'UTF-8')) ?></p>
+            <p>Answered by: <?= $answer['first_name'] . ' ' . $answer['last_name']?></p>
+            <p><?= $answer['body']?></p>
             <?php if ($this->session->userdata('userId') == $question['user_id']): ?>
                 <?php if (!$answer['is_accepted']): ?>
-                    <button class="btn accept-btn" onclick="acceptAnswer(<?= $answer['answer_id'] ?>,<?= $question['question_id'] ?>)">Accept Answer</button>
+                    <button class="btn accept-btn" onclick="acceptAnswer(<?= $answer['answer_id'] ?>, <?= $question['question_id'] ?>)">Accept Answer</button>
                 <?php else: ?>
-                    <button class="btn reject-btn" onclick="rejectAnswer(<?= $answer['answer_id'] ?>,<?= $question['question_id'] ?>)">Reject Answer</button>
+                    <button class="btn reject-btn" onclick="rejectAnswer(<?= $answer['answer_id'] ?>, <?= $question['question_id'] ?>)">Reject Answer</button>
                 <?php endif; ?>
             <?php endif; ?>
         </article>
@@ -217,7 +273,12 @@
                     
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                // console.log('fked');
+                location.reload();
+                alert(error.message);
+                
+            });
         }
 
         function voteOnAnswer(answerId, direction) {
@@ -241,7 +302,12 @@
                     alert(data.message);
                 }
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                // console.log('fked');
+                location.reload();
+                alert(error.message);
+                
+            });
         }
 
         // Answer Acceptance

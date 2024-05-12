@@ -118,38 +118,6 @@ class Questions extends RestController {
         }
     }
     
-    // VOTING FUNCTIONALITY
-    public function voteOnQuestion_post($question_id, $type) {
-        $user_id = $this->session->userdata('userId');
-        if (!$user_id) {
-            $this->response([
-                'status' => FALSE,
-                'message' => 'User not logged in'
-            ], RestController::HTTP_UNAUTHORIZED);
-            return;
-        }
-    
-        $currentVote = $this->QuestionModel->checkUserVote($user_id, $question_id);
-        if ($currentVote) {
-            if ($currentVote === $type) {
-                $this->response([
-                    'status' => FALSE,
-                    'message' => 'You have already voted this way'
-                ], RestController::HTTP_CONFLICT);
-            } else {
-                $this->QuestionModel->updateUserVote($user_id, $question_id, $type);
-                $this->response([
-                    'status' => TRUE,
-                    'message' => 'Vote changed successfully'
-                ], RestController::HTTP_OK);
-            }
-        } else {
-            $this->QuestionModel->recordUserVoteOnQuestion($user_id, $question_id, $type);
-            $this->response([
-                'status' => TRUE,
-                'message' => 'Vote recorded successfully'
-            ], RestController::HTTP_OK);
-        }
-    }
+
     
 }

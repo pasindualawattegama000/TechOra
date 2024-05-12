@@ -40,12 +40,16 @@
             margin-top: 10px;
             font-size: 14px;
         }
+
+        h2{
+            padding:20px;
+        }
     </style>
 </head>
 <body>
+<h2>Search Results for "<?php echo $searchedFor ?>"</h2>
     <div class="search-results-section">
-        <h2>Search Results for "<?php echo $searchedFor ?>"</h2>
-
+        
         <?php if (empty($results)): ?>
             <p>No results found.</p>
         <?php else: ?>
