@@ -9,8 +9,7 @@ class Votes extends RestController {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('QuestionModel');
-        $this->load->model('AnswerModel'); 
+        $this->load->model('VoteModel'); 
         $this->load->helper(array('form', 'url'));
         $this->load->library('session');
     }
@@ -27,7 +26,7 @@ class Votes extends RestController {
             return;
         }
     
-        $currentVote = $this->QuestionModel->checkUserVote($user_id, $question_id);
+        $currentVote = $this->VoteModel->checkUserQuestionVote($user_id, $question_id);
         if ($currentVote) {
             if ($currentVote === $type) {
                 $this->response([
@@ -35,14 +34,14 @@ class Votes extends RestController {
                     'message' => 'You have already voted this way'
                 ], RestController::HTTP_UNAUTHORIZED);
             } else {
-                $this->QuestionModel->updateUserVote($user_id, $question_id, $type);
+                $this->VoteModel->updateUserQuestionVote($user_id, $question_id, $type);
                 $this->response([
                     'status' => TRUE,
                     'message' => 'Vote changed successfully'
                 ], RestController::HTTP_OK);
             }
         } else {
-            $this->QuestionModel->recordUserVoteOnQuestion($user_id, $question_id, $type);
+            $this->VoteModel->recordUserVoteOnQuestion($user_id, $question_id, $type);
             $this->response([
                 'status' => TRUE,
                 'message' => 'Vote recorded successfully'
@@ -62,18 +61,18 @@ class Votes extends RestController {
             }
     
             // Checking existing votes prevent duplicate voting
-            $currentVote = $this->AnswerModel->checkUserVote($user_id, $answer_id);
+            $currentVote = $this->VoteModel->checkUserAnswerVote($user_id, $answer_id);
             if ($currentVote) {
               
                 if ($currentVote === $type) {
                     $this->response(['status' => FALSE, 'message' => 'You have already voted'], RestController::HTTP_UNAUTHORIZED);
                 } else {
-                    $this->AnswerModel->updateUserVote($user_id, $answer_id, $type);
+                    $this->VoteModel->updateUserAnswerVote($user_id, $answer_id, $type);
                     $this->response(['status' => TRUE, 'message' => 'Vote changed successfully'], RestController::HTTP_OK);
                 }
             } else {
         
-                $this->AnswerModel->recordUserVoteOnAnswer($user_id, $answer_id, $type);
+                $this->VoteModel->recordUserVoteOnAnswer($user_id, $answer_id, $type);
                 $this->response(['status' => TRUE, 'message' => 'Vote recorded successfully'], RestController::HTTP_OK);
             }
         }

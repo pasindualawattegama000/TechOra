@@ -42,69 +42,7 @@ class AnswerModel extends CI_Model {
     }
 
 
-    // +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-    //VOTING
-    
-    //INITITAL VOTING
 
-    // public function recordUserVoteOnAnswer($user_id, $answer_id, $direction) {
-    //     $data = [
-    //         'user_id' => $user_id,
-    //         'component_id' => $answer_id,
-    //         'component_type' => 'answer',
-    //         'vote_direction' => $direction
-    //     ];
-    //     $this->db->insert('user_votes', $data);
-    // }
-
-    // public function icriAnsVotes($answer_id) {
-    //     $this->db->set('votes', 'votes + 1', FALSE);
-    //     $this->db->where('answer_id', $answer_id);
-    //     $this->db->update('answers');
-    // }
-
-    // public function decAnsVotes($answer_id) {
-    //     $this->db->set('votes', 'votes - 1', FALSE);
-    //     $this->db->where('answer_id', $answer_id);
-    //     $this->db->update('answers');
-    // }
-
-    
-    //+++++++++++++
-    //REFINED VOTING
-    
-    public function checkUserVote($user_id, $answer_id) {
-        $this->db->select('vote_direction');
-        $this->db->from('user_votes');
-        $this->db->where('user_id', $user_id);
-        $this->db->where('component_id', $answer_id);
-        $this->db->where('component_type', 'answer');
-        $result = $this->db->get()->row();
-        return $result ? $result->vote_direction : null;
-    }
-    
-    public function updateUserVote($user_id, $answer_id, $vote_direction) {
-        $data = ['vote_direction' => $vote_direction];
-        $this->db->where('user_id', $user_id);
-        $this->db->where('component_id', $answer_id);
-        $this->db->where('component_type', 'answer');
-        $this->db->update('user_votes', $data);
-    }
-    
-    public function recordUserVoteOnAnswer($user_id, $answer_id, $direction) {
-        $data = [
-            'user_id' => $user_id,
-            'component_id' => $answer_id,
-            'component_type' => 'answer',
-            'vote_direction' => $direction
-        ];
-        $this->db->insert('user_votes', $data);
-    }
-
-
-
-
-    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Answer accpetance
 
     public function accept_answer($answer_id, $question_id) {
@@ -127,18 +65,7 @@ class AnswerModel extends CI_Model {
         $this->db->update('questions');
     }
 
-    // public function get_question_id_by_answer($answer_id) {
-    //     $this->db->select('question_id');
-    //     $this->db->from('answers');
-    //     $this->db->where('answer_id', $answer_id);
-    //     $query = $this->db->get();
-    //     if ($query->num_rows() > 0) {
-    //         return $query->row()->question_id;
-    //     }
-    //     return NULL;
-    // }
 
-    //++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
     //Profile Page
 
     public function get_answers_by_user($user_id) {

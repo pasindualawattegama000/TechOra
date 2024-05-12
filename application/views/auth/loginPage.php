@@ -153,7 +153,7 @@
                         color = 'black';
                     }
 
-                    $('#message').text('Registration failed: ' + message).css('color', color).show();
+                    $('#message').text('Login failed: ' + message).css('color', color).show();
                 }
             });
         },
