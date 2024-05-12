@@ -91,6 +91,28 @@ body {
     opacity: 0.9;
 }
 
+
+#message {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#message.success {
+    color: green;
+    border: 2px solid green; 
+    background-color: #f0fff0; 
+}
+
+
+#message.error {
+    color: red;
+    border: 2px solid red; 
+    background-color: #fff0f0; /
+}
+
+
     </style>
 
     <!-- Include jQuery -->
@@ -104,7 +126,6 @@ body {
 <body>
     
 <form id="askQuestionForm" >
-    <div id="message" style="display: none; color: green;">Successfully Registered User!</div>
 
     <h2>Post A Public Question</h2><br>
     <div class="form-group">
@@ -123,6 +144,9 @@ body {
         <label for="tags">Tags</label>
         <input type="text" id="tags" name="tags" placeholder="Tags (comma separated)" required>
     </div>
+
+    <div id="message" style="display: none; color: green;">Successfully Registered User!</div>
+
     <div class="button-group">
         <button type="reset">Clear Fields</button>
         <input type="submit" value="Post your question">
@@ -151,23 +175,32 @@ body {
                 success: function(response) {
                  
                     var message = response.message;
-                    var color = response.status ? 'green' : 'red'; 
+                    var statusClass = response.status ? 'success' : 'error';
 
-                    $('#message').text(message).css('color', color).show();
+                    $('#message').removeClass('success error').addClass(statusClass).text(message).show();
+
+
+                    if (response.status) {
+                                $('#title').val(''); 
+                                $('#body').val(''); 
+                                $('#image').val(''); 
+                                $('#tags').val(''); 
+                             }
+
 
                     setTimeout(function() {
                         $('#message').hide();
                         if (response.status) {
-                            location.reload();
-                            alert("Answer Posted Successfully");
+                            
                         }
                     }, 6000);
                 },
+
+
                 error: function(xhr, status, error) {
                     // Handle error
                     console.error('Error: ' + error);
-                    $('#message').text('Failed to process your request. Please try again.').css('color', 'red').show();
-
+                    $('#message').removeClass('success').addClass('error').text('Error Posting Question, Check Image Type..').show();
                     setTimeout(function() {
                         $('#message').hide();
                     }, 6000);

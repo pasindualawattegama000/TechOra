@@ -8,17 +8,13 @@ class AnswerModel extends CI_Model {
         $this->load->database();
     }
 
-    // Fetch all answers for a specific question with user details
-    // public function get_answers_by_question_id($question_id) {
-    //     $this->db->select('answers.*, users.first_name, users.last_name');
-    //     $this->db->from('answers');
-    //     $this->db->join('users', 'users.id = answers.user_id', 'left');
-    //     $this->db->where('answers.question_id', $question_id);
-    //     $query = $this->db->get();
-    //     return $query->result_array();
-    // }
+    
+    // Insert a new answer into the database
+    public function insert_answer($data) {
+        return $this->db->insert('answers', $data);
+    }
 
-
+    // Fetching Answers
     public function get_answers_by_question_id($question_id) {
         $this->db->select('
             answers.*, 
@@ -35,13 +31,6 @@ class AnswerModel extends CI_Model {
         return $query->result_array();
     }
     
-
-    // Insert a new answer into the database
-    public function insert_answer($data) {
-        return $this->db->insert('answers', $data);
-    }
-
-
 
     //Answer accpetance
 
@@ -65,21 +54,5 @@ class AnswerModel extends CI_Model {
         $this->db->update('questions');
     }
 
-
-    //Profile Page
-
-    public function get_answers_by_user($user_id) {
-        $this->db->select('*');
-        $this->db->from('answers');
-        $this->db->where('user_id', $user_id);
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
-    public function delete_answer($answer_id) {
-        $this->db->where('answer_id', $answer_id);
-        $result = $this->db->delete('answers');
-        return $result; 
-    }
 
 }

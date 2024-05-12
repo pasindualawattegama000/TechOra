@@ -6,10 +6,6 @@ class UserModel extends CI_Model{
         $this->table = 'users'; 
     } 
      
-    /* 
-     * Fetch user data from the database 
-     * @param array filter data based on the passed parameters 
-     */ 
     function getRows($params = array()){ 
         $this->db->select('*'); 
         $this->db->from($this->table); 
@@ -48,19 +44,16 @@ class UserModel extends CI_Model{
         return $result; 
     } 
      
-    /* 
-     * Insert user data into the database 
-     * @param $data data to be inserted 
-     */ 
+
     public function insert($data = array()) { 
         if(!empty($data)){ 
             // Add created and modified date if not included 
-            if(!array_key_exists("created", $data)){ 
-                $data['created'] = date("Y-m-d H:i:s"); 
-            } 
-            if(!array_key_exists("modified", $data)){ 
-                $data['modified'] = date("Y-m-d H:i:s"); 
-            } 
+            // if(!array_key_exists("created", $data)){ 
+            //     $data['created'] = date("Y-m-d H:i:s"); 
+            // } 
+            // if(!array_key_exists("modified", $data)){ 
+            //     $data['modified'] = date("Y-m-d H:i:s"); 
+            // } 
              
             // Insert member data 
             $insert = $this->db->insert($this->table, $data); 
@@ -71,15 +64,5 @@ class UserModel extends CI_Model{
         return false; 
     } 
 
-
-
-//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-//Profile Page
-
-public function get_user_by_id($user_id) {
-    $this->db->where('id', $user_id);
-    $query = $this->db->get('users');
-    return $query->row_array();
-}
 
 }

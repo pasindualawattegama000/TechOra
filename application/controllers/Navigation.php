@@ -5,9 +5,7 @@ class Navigation extends CI_Controller {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('QuestionModel');
-        $this->load->model('AnswerModel');
-        $this->load->model('UserModel');
+        $this->load->model('ProfileModel');
         $this->load->helper(array('form', 'url'));
         $this->load->library('session');
     }
@@ -24,11 +22,11 @@ class Navigation extends CI_Controller {
         }
 
         // Fetch the user's data
-        $data['user'] = $this->UserModel->get_user_by_id($user_id);
+        $data['user'] = $this->ProfileModel->getUserFromId($user_id);
 
         // Fetch the user's questions and answers
-        $data['questions'] = $this->QuestionModel->getQuestions_by_user($user_id);
-        $data['answers'] = $this->AnswerModel->get_answers_by_user($user_id);
+        $data['questions'] = $this->ProfileModel->getQuestionFromUserId($user_id);
+        $data['answers'] = $this->ProfileModel->getAnswerFromUserId($user_id);
 
         // Load the profile view
         $this->load->view('templates/header');

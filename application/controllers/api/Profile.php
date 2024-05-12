@@ -9,9 +9,7 @@ class Profile extends RestController {
 
     public function __construct() {
         parent::__construct();
-        $this->load->model('QuestionModel');
-        $this->load->model('AnswerModel');
-        $this->load->model('UserModel');
+        $this->load->model('ProfileModel');
         $this->load->helper(array('form', 'url'));
         $this->load->library('session');
     }
@@ -28,7 +26,7 @@ class Profile extends RestController {
         }
     
         //deleting the question form the DB
-        $delete_success = $this->QuestionModel->delete_question($question_id);
+        $delete_success = $this->ProfileModel->delete_question($question_id);
         if ($delete_success) {
             $this->response([
                 'status' => TRUE,
@@ -54,7 +52,7 @@ class Profile extends RestController {
         }
     
         //Deleting the answer linked with the user 
-        $delete_success = $this->AnswerModel->delete_answer($answer_id);
+        $delete_success = $this->ProfileModel->delete_answer($answer_id);
         if ($delete_success) {
             $this->response([
                 'status' => TRUE,

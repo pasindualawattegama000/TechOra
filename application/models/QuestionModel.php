@@ -122,22 +122,5 @@ class QuestionModel extends CI_Model {
     
 
 
-    //Profile Page
-    public function getQuestions_by_user($user_id) {
-        $this->db->select('questions.*, COUNT(answers.answer_id) as answer_count');
-        $this->db->from('questions');
-        $this->db->join('answers', 'answers.question_id = questions.question_id', 'left');
-        $this->db->where('questions.user_id', $user_id);
-        $this->db->group_by('questions.question_id');
-        $query = $this->db->get();
-        return $query->result_array();
-    }
-
-    public function delete_question($question_id) {
-        $this->db->where('question_id', $question_id);
-        $result = $this->db->delete('questions');
-        return $result; 
-    }
-    
 
 }

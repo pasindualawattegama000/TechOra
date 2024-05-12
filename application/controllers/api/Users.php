@@ -39,8 +39,7 @@ class Users extends RestController {
                 'returnType' => 'single', 
                 'conditions' => array( 
                     'email'=> $userData['email'], 
-                    'password' => ($userData['password']), 
-                    'status' => 1 
+                    'password' => ($userData['password'])
                 ) 
             ); 
     
