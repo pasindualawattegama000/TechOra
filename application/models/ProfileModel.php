@@ -51,4 +51,17 @@ class ProfileModel extends CI_Model {
         return $result; 
     }
 
+    //DELETE USER
+
+    public function deleteUser($userId) {
+        $this->db->trans_start();
+        $this->db->delete('answers', ['user_id' => $userId]);
+        $this->db->delete('questions', ['user_id' => $userId]);
+        $this->db->delete('user_votes', ['user_id' => $userId]);
+        $this->db->delete('users', ['id' => $userId]);
+        $this->db->trans_complete();
+        return $this->db->trans_status();
+    }
+    
+
 }

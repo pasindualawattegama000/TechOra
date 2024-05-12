@@ -65,6 +65,25 @@ class Profile extends RestController {
             ], RestController::HTTP_INTERNAL_SERVER_ERROR);
         }
     }
+
+
+    //DELETE PROFILE
+    public function deleteProfile_delete() {
+        $userId = $this->session->userdata('userId');
+        if ($this->ProfileModel->deleteUser($userId)) {
+            $this->session->sess_destroy();  // Destroy session after deletion
+            $this->response([
+                'status' => TRUE,
+                'message' => 'Profile deleted successfully'
+            ], RestController::HTTP_OK);
+        } else {
+            $this->response([
+                'status' => FALSE,
+                'message' => 'Failed to delete profile'
+            ], RestController::HTTP_INTERNAL_SERVER_ERROR);
+        }
+    }
+    
     
 }
 ?>

@@ -61,6 +61,27 @@
             color: green;
             font-weight: bold;
         }
+
+        .delete-question , .delete-answer{
+            background-color: #d9534f; 
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-question:hover {
+            background-color: #c9302c;
+        }
+
+        .delete-answer:hover {
+            background-color: #c9302c;
+        }
+
+
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
@@ -70,6 +91,7 @@
             <h1>My Profile</h1>
             <img src="<?php echo base_url('assets/images/defaultProfile.png'); ?>" alt="User Avatar">
             <h5><?php echo $user['first_name'] . ' ' . $user['last_name']; ?></h5>
+            <button id="delete-profile" class="btn btn-danger">Delete Profile</button>
         </div>
 
         <div class="questions-answers">
@@ -105,39 +127,61 @@
     <script>
        $(document).ready(function () {
         $(".delete-question").click(function () {
-            var questionDiv = $(this).closest(".question");
-            var questionId = questionDiv.data("question-id");
-            $.ajax({
-                url: "<?php echo site_url('api/profile/deleteQuestion'); ?>/" + questionId,
-                type: "DELETE",
-                success: function (response) {
-                    questionDiv.remove();
-                    alert(response.message);
-                },
-                error: function (xhr) {
-                    alert("Failed to delete question");
-                }
-            });
+            if (confirm('Are you sure you want to delete this question? This action cannot be undone.')) {
+                var questionDiv = $(this).closest(".question");
+                var questionId = questionDiv.data("question-id");
+                $.ajax({
+                    url: "<?php echo site_url('api/profile/deleteQuestion'); ?>/" + questionId,
+                    type: "DELETE",
+                    success: function (response) {
+                        questionDiv.remove();
+                        alert(response.message);
+                    },
+                    error: function (xhr) {
+                        alert("Failed to delete question");
+                    }
+                });
+            }
         });
 
         $(".delete-answer").click(function () {
+        if (confirm('Are you sure you want to delete this answer? This action cannot be undone.')) {
             var answerDiv = $(this).closest(".answer");
             var answerId = answerDiv.data("answer-id");
             $.ajax({
                 url: "<?php echo site_url('api/profile/deleteAnswer'); ?>/" + answerId,
                 type: "DELETE",
                 success: function (response) {
-                    console.log("success");
                     answerDiv.remove();
                     alert(response.message);
                 },
                 error: function (xhr) {
-    
                     alert("Failed to delete answer");
                 }
             });
-        });
+        }
     });
+});
+
+    $(document).ready(function () {
+            $('#delete-profile').click(function() {
+                if (confirm('Are you sure you want to delete your profile? This action cannot be undone!')) {
+                    $.ajax({
+                        url: "<?php echo site_url('api/profile/deleteProfile'); ?>",
+                        type: "DELETE",
+                        success: function (response) {
+                            alert("Profile deleted successfully.");
+                            window.location.href = "<?php echo site_url('home'); ?>"; // Redirect to home page after deletion
+                        },
+                        error: function (xhr) {
+                            alert("Failed to delete profile");
+                        }
+                    });
+                }
+            });
+           
+        });
+
 
     </script>
 </body>
