@@ -31,7 +31,7 @@ class Answers extends CI_Controller {
             'answered_dt' => date('Y-m-d H:i:s')
         );
 
-        $this->AnswerModel->insert_answer($answer_data);
+        $this->AnswerModel->postAnswer($answer_data);
 
         try {
             // Your logic here

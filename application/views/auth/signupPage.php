@@ -53,11 +53,11 @@
         }
     </style>
 
-    <!-- Include jQuery -->
+    <!-- Including jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Include Underscore.js -->
+    <!-- Including Underscore.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
-    <!-- Include Backbone.js -->
+    <!-- Including Backbone.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 
 </head>
@@ -103,7 +103,8 @@
 
 
     
-    <script>
+<script>
+    // Define a Backbone model for person data.
     var UserModel = Backbone.Model.extend({
         defaults: {
             firstname: '',
@@ -113,6 +114,7 @@
         }
     });
 
+    // Define a Backbone view for handling the login form.
     var PersonView = Backbone.View.extend({
         el: "#registerForm",
         events: {
@@ -132,7 +134,8 @@
 
             this.model.set({firstname: firstname, lastname: lastname, email: email, password: password});
 
-            // Send data to the server
+
+            // AJAX call to send data to the server and handle responses.
             $.ajax({
                 url: 'http://localhost/TechOra/index.php/api/Users/registration',
                 type: 'POST',
@@ -175,6 +178,7 @@
       
     });
 
+    // Instantiate the view.
     var personView = new PersonView();
 </script>
 

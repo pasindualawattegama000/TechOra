@@ -18,15 +18,15 @@ class Questions extends CI_Controller {
 
 
     public function question_details($question_id) {
-        $this->QuestionModel->increment_views($question_id);
+        $this->QuestionModel->incrementViews($question_id);
         // Load the AnswerModel to fetch answers
         $this->load->model('AnswerModel');
         
         // Fetch question details using the QuestionModel
-        $data['question'] = $this->QuestionModel->get_question_by_id($question_id);
+        $data['question'] = $this->QuestionModel->getQuestionFromId($question_id);
         
         // Fetch answers using the AnswerModel
-        $data['answers'] = $this->AnswerModel->get_answers_by_question_id($question_id);
+        $data['answers'] = $this->AnswerModel->getAnswerFromQuestionId($question_id);
         
         // Load the question details view
         $this->load->view('templates/header');
@@ -119,7 +119,7 @@ class Questions extends CI_Controller {
             );
 
                 // Save to database
-            if ($this->QuestionModel->insert_question($questionData)) {
+            if ($this->QuestionModel->postQuestion($questionData)) {
                 // If data is successfully saved, send a success response
                 $responseData = array(
                     'success' => true,

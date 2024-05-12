@@ -68,7 +68,6 @@
 }
   
 .nav-item.active {
-  /* background-color: #4CAF50; */
   border-bottom: 2px solid white;
 }
 
@@ -86,10 +85,8 @@
       <?php if($this->session->userdata('isUserLoggedIn')): ?>
             <li class="nav-item <?= (current_url() == site_url('navigation/loadPostQuestions')) ? 'active' : '' ?>"> <a href="<?php echo site_url('navigation/loadPostQuestions'); ?>">Ask Question</a></li>
             <li class="nav-item <?= (current_url() == site_url('navigation/loadProfile')) ? 'active' : '' ?>"> <a href="<?php echo site_url('navigation/loadProfile'); ?>">Profile</a></li>
-           
       <?php endif; ?>
    
-
     </div>
     <div class="nav-center">
       <li class="nav-item <?= (current_url() == site_url('search/Questions')) ? 'active' : '' ?>">
@@ -112,7 +109,6 @@
 
     </div>
 </ul>
-
 
 </body>
 </html>

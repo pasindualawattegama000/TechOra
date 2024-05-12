@@ -8,23 +8,21 @@ class QuestionModel extends CI_Model {
         $this->load->database();
     }
 
-
-    
-    public function insert_question($data) {
+    // Posting questions    
+    public function postQuestion($data) {
         return $this->db->insert('questions', $data);
     }
 
-
+    // Search for questions based on the term in title or body
     public function search_questions($search_term) {
-        // Search for questions based on the term in title or body
         $this->db->like('title', $search_term);
         $this->db->or_like('body', $search_term);
         $query = $this->db->get('questions');
         return $query->result_array();
     }
 
-// Filtering the questions
 
+    // Fetch all the questions without filters
     public function getAllQuestions() {
         $this->db->select('
             questions.*,
@@ -42,7 +40,7 @@ class QuestionModel extends CI_Model {
         return $query->result_array();
     }
 
-
+    // Filtering the questions 
     public function FilterLatestQuestions() {
         $this->db->select('
             questions.*, 
@@ -87,7 +85,7 @@ class QuestionModel extends CI_Model {
         $this->db->join('answers', 'answers.question_id = questions.question_id', 'left');
         $this->db->join('user_votes', 'user_votes.component_id = questions.question_id AND user_votes.component_type = \'question\'', 'left');
         $this->db->group_by('questions.question_id');
-        $this->db->where('is_answered', FALSE);  // Ensure to include only unanswered questions
+        $this->db->where('is_answered', FALSE);  
         $this->db->order_by('questions.asked_dt', 'DESC');  
         $query = $this->db->get();
         return $query->result_array();
@@ -95,7 +93,8 @@ class QuestionModel extends CI_Model {
     
 
 
-    public function get_question_by_id($question_id) {
+    //Get question details based on the Id
+    public function getQuestionFromId($question_id) {
         $this->db->select('
             questions.*, 
             COUNT(answers.answer_id) as answer_count, 
@@ -114,7 +113,8 @@ class QuestionModel extends CI_Model {
     }
     
 
-    public function increment_views($question_id) {
+    // When a question is viewed, incrimenting the views
+    public function incrementViews($question_id) {
         $this->db->set('views', 'views + 1', FALSE);
         $this->db->where('question_id', $question_id);
         $this->db->update('questions');

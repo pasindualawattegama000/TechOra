@@ -10,12 +10,12 @@ class AnswerModel extends CI_Model {
 
     
     // Posting an answer
-    public function insert_answer($data) {
+    public function postAnswer($data) {
         return $this->db->insert('answers', $data);
     }
 
     // Fetching Answers
-    public function get_answers_by_question_id($question_id) {
+    public function getAnswerFromQuestionId($question_id) {
         $this->db->select('
             answers.*, 
             users.first_name, 
@@ -31,7 +31,6 @@ class AnswerModel extends CI_Model {
         return $query->result_array();
     }
     
-
     //Answer accpetance
 
     public function accept_answer($answer_id, $question_id) {

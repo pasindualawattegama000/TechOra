@@ -74,7 +74,7 @@ class Questions extends CI_Controller {
             );
 
                 // Save to database
-            if ($this->QuestionModel->insert_question($questionData)) {
+            if ($this->QuestionModel->postQuestion($questionData)) {
                 // If data is successfully saved, send a success response
                 $responseData = array(
                     'success' => true,

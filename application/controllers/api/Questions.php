@@ -44,7 +44,7 @@ class Questions extends RestController {
             'user_id' => $userId
         ];
 
-        if ($this->QuestionModel->insert_question($questionData)) {
+        if ($this->QuestionModel->postQuestion($questionData)) {
             $this->response([
                 'status' => TRUE,
                 'message' => 'Question posted successfully'

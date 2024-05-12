@@ -51,7 +51,6 @@
             resize: vertical;
         }
 
-            /* Button CSS */
         .btn {
             background-color: #007bff;
             color: white;
@@ -249,8 +248,8 @@
             })
             .then(response => response.json())
             .then(data => {
-                successMessage.textContent = data.message; // Display the message from the server
-                successMessage.style.display = 'block'; // Make the success message visible
+                successMessage.textContent = data.message; 
+                successMessage.style.display = 'block'; 
                 successMessage.style.color = 'green';
                 location.reload();
             })
@@ -280,7 +279,6 @@
                 }
             })
             .catch(error => {
-                // console.log('fked');
                 location.reload();
                 alert(error.message);
                 
@@ -310,7 +308,6 @@
                 }
             })
             .catch(error => {
-                // console.log('fked');
                 location.reload();
                 alert(error.message);
                 

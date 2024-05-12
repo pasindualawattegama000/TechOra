@@ -10,8 +10,8 @@ class VoteModel extends CI_Model {
 
 
 
-  //VOTING QUESTIONS
-
+    //VOTING QUESTIONS -----------------------
+    //Check if user have previously voted
     public function checkUserQuestionVote($user_id, $question_id) {
         $this->db->select('vote_direction');
         $this->db->from('user_votes');
@@ -21,7 +21,8 @@ class VoteModel extends CI_Model {
         $result = $this->db->get()->row();
         return $result ? $result->vote_direction : null;
     }
-    
+
+    //Update 
     public function updateUserQuestionVote($user_id, $question_id, $vote_direction) {
         $data = ['vote_direction' => $vote_direction];
         $this->db->where('user_id', $user_id);
@@ -30,6 +31,7 @@ class VoteModel extends CI_Model {
         $this->db->update('user_votes', $data);
     }
     
+    //Vote
     public function recordUserVoteOnQuestion($user_id, $question_id, $direction) {
         $data = [
             'user_id' => $user_id,
@@ -43,8 +45,9 @@ class VoteModel extends CI_Model {
 
 
 
-    //VOTING ANSWERS
+    //VOTING ANSWERS -----------------------------
     
+    //Check if user have previously voted
     public function checkUserAnswerVote($user_id, $answer_id) {
         $this->db->select('vote_direction');
         $this->db->from('user_votes');
@@ -55,6 +58,7 @@ class VoteModel extends CI_Model {
         return $result ? $result->vote_direction : null;
     }
     
+    //Update 
     public function updateUserAnswerVote($user_id, $answer_id, $vote_direction) {
         $data = ['vote_direction' => $vote_direction];
         $this->db->where('user_id', $user_id);
@@ -63,6 +67,7 @@ class VoteModel extends CI_Model {
         $this->db->update('user_votes', $data);
     }
     
+    //Vote
     public function recordUserVoteOnAnswer($user_id, $answer_id, $direction) {
         $data = [
             'user_id' => $user_id,

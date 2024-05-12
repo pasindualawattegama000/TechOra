@@ -2,7 +2,7 @@
  
 class UserModel extends CI_Model{ 
     function __construct() { 
-        // Set table name 
+        // Defining the tabel name
         $this->table = 'users'; 
     } 
      
@@ -35,30 +35,21 @@ class UserModel extends CI_Model{
                  
                 $query = $this->db->get(); 
                 $result = ($query->num_rows() > 0)?$query->result_array():FALSE; 
-
         
             } 
         } 
          
-        // Return fetched data 
+        // Return the user data
         return $result; 
     } 
      
 
     public function insert($data = array()) { 
         if(!empty($data)){ 
-            // Add created and modified date if not included 
-            // if(!array_key_exists("created", $data)){ 
-            //     $data['created'] = date("Y-m-d H:i:s"); 
-            // } 
-            // if(!array_key_exists("modified", $data)){ 
-            //     $data['modified'] = date("Y-m-d H:i:s"); 
-            // } 
-             
-            // Insert member data 
+            // Insert user's data 
             $insert = $this->db->insert($this->table, $data); 
              
-            // Return the status 
+            // Return status 
             return $insert?$this->db->insert_id():false; 
         } 
         return false; 

@@ -6,22 +6,14 @@
     <title>Login</title>
     <style>
         body, html {
-            /* height: 100%;
-            margin: 0; */
-            /* font-family: Arial, sans-serif; */
             background-color: #F5F5F5;
-            /* display: flex;
-            justify-content: center;
-            align-items: center; */
         }
 
         .register-box {
-      
             width: 350px;
             margin: auto;
             margin-top:5%;
             padding:20px;
-
             background: #fff;
             border: 1px solid #ddd;
             border-radius: 8px;
@@ -59,11 +51,11 @@
         }
     </style>
 
-    <!-- Include jQuery -->
+    <!-- Including jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <!-- Include Underscore.js -->
+    <!-- Including Underscore.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
-    <!-- Include Backbone.js -->
+    <!-- Including Backbone.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 
 
@@ -74,7 +66,6 @@
 
          <!-- Status message -->
         <div id="message" style="display: none; color: green;">Successfully Registered User!</div>
-
 
         <form id="loginForm">
             <div class="form-field">
@@ -90,9 +81,9 @@
             </div>
             <p>Don't have an account? <a href="<?php echo site_url('Navigation/loadRegister'); ?>">Register Now</a></p>
         </form>
-
     </div>
 
+    
 <script>
     // Define a Backbone model for person data.
     var UserModel = Backbone.Model.extend({

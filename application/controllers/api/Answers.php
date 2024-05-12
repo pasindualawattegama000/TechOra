@@ -37,7 +37,7 @@ class Answers extends RestController {
         );
 
         //inserting answer into database 
-        if ($this->AnswerModel->insert_answer($answer_data)) {
+        if ($this->AnswerModel->postAnswer($answer_data)) {
             $this->response([
                 'status' => TRUE,
                 'message' => "Successfully Posted"
