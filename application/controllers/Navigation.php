@@ -30,7 +30,7 @@ class Navigation extends CI_Controller {
 
         // Load the profile view
         $this->load->view('templates/header');
-        $this->load->view('profile', $data);
+        $this->load->view('profile_page', $data);
         $this->load->view('templates/footer');
     }
 
@@ -38,7 +38,7 @@ class Navigation extends CI_Controller {
     public function loadPostQuestions()
     {
         $this->load->view('templates/header');
-        $this->load->view('askQuestionPage');
+        $this->load->view('post_question');
         $this->load->view('templates/footer');
     }
 

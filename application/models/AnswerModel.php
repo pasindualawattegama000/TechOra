@@ -9,7 +9,7 @@ class AnswerModel extends CI_Model {
     }
 
     
-    // Insert a new answer into the database
+    // Posting an answer
     public function insert_answer($data) {
         return $this->db->insert('answers', $data);
     }

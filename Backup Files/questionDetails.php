@@ -146,8 +146,14 @@
 
    
 
-
     </style>
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
+
+
 </head>
 <body>
 
@@ -243,9 +249,9 @@
             })
             .then(response => response.json())
             .then(data => {
-                successMessage.textContent = data.message; // Display the message from the server
-                successMessage.style.display = 'block'; // Make the success message visible
-                successMessage.style.color = 'green';
+                // successMessage.textContent = data.message; 
+                // successMessage.style.display = 'block'; 
+                // successMessage.style.color = 'green';
                 location.reload();
             })
             .catch(error => {
@@ -255,6 +261,8 @@
                 successMessage.style.color = 'red';
             });
         };
+
+
 
         function voteOnQuestion(questionId, direction) {
             fetch(`<?= site_url('api/votes/voteOnQuestion/') ?>${questionId}/${direction}`, {
@@ -280,6 +288,7 @@
                 
             });
         }
+
 
         function voteOnAnswer(answerId, direction) {
             fetch(`<?= site_url('api/votes/voteOnAnswer/') ?>${answerId}/${direction}`, {

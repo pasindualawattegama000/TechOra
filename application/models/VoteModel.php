@@ -74,6 +74,9 @@ class VoteModel extends CI_Model {
     }
 
 
+    
 
 
 }
+
+

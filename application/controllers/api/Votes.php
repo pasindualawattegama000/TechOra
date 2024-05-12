@@ -15,7 +15,7 @@ class Votes extends RestController {
     }
 
 
-    // VOTING FUNCTIONALITY
+   // VOTING FUNCTIONALITY
     public function voteOnQuestion_post($question_id, $type) {
         $user_id = $this->session->userdata('userId');
         if (!$user_id) {
@@ -48,6 +48,7 @@ class Votes extends RestController {
             ], RestController::HTTP_OK);
         }
     }
+
 
 
 

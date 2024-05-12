@@ -23,7 +23,7 @@ class QuestionDetails extends CI_Controller {
         
         // Load the question details view
         $this->load->view('templates/header');
-        $this->load->view('questionDetails', $data); 
+        $this->load->view('detailed_question_page', $data); 
         $this->load->view('templates/footer');
     }
 
