@@ -27,7 +27,7 @@ class Navigation extends CI_Controller {
         $data['user'] = $this->UserModel->get_user_by_id($user_id);
 
         // Fetch the user's questions and answers
-        $data['questions'] = $this->QuestionModel->get_questions_by_user($user_id);
+        $data['questions'] = $this->QuestionModel->getQuestions_by_user($user_id);
         $data['answers'] = $this->AnswerModel->get_answers_by_user($user_id);
 
         // Load the profile view

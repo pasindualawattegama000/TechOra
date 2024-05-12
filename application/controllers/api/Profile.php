@@ -18,6 +18,7 @@ class Profile extends RestController {
 
 
     public function deleteQuestion_delete($question_id) {
+        // Checking if the user is logged in.
         if (!$this->session->userdata('userId')) {
             $this->response([
                 'status' => FALSE,
@@ -26,6 +27,7 @@ class Profile extends RestController {
             return;
         }
     
+        //deleting the question form the DB
         $delete_success = $this->QuestionModel->delete_question($question_id);
         if ($delete_success) {
             $this->response([
@@ -42,6 +44,7 @@ class Profile extends RestController {
     
 
     public function deleteAnswer_delete($answer_id) {
+        // Checking if the user is logged in.
         if (!$this->session->userdata('userId')) {
             $this->response([
                 'status' => FALSE,
@@ -50,6 +53,7 @@ class Profile extends RestController {
             return;
         }
     
+        //Deleting the answer linked with the user 
         $delete_success = $this->AnswerModel->delete_answer($answer_id);
         if ($delete_success) {
             $this->response([

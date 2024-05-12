@@ -201,7 +201,7 @@
         };
 
         function voteOnQuestion(questionId, direction) {
-            fetch(`<?= site_url('api/questions/voteOnQuestion/') ?>${questionId}/${direction}`, {
+            fetch(`<?= site_url('api/votes/voteOnQuestion/') ?>${questionId}/${direction}`, {
                 method: 'POST',
             })
             .then(response => response.json())
@@ -221,7 +221,7 @@
         }
 
         function voteOnAnswer(answerId, direction) {
-            fetch(`<?= site_url('api/answers/voteOnAnswer/') ?>${answerId}/${direction}`, {
+            fetch(`<?= site_url('api/votes/voteOnAnswer/') ?>${answerId}/${direction}`, {
                 method: 'POST',
             })
             .then(response => response.json())

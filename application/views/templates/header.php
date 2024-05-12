@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-    <title>Free Movies</title>
+    <title>TechOra</title>
     <style>
 
     ul {
         display: flex;
-        justify-content: space-between; /* Aligns items on the main-axis */
+        justify-content: space-between; 
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -19,7 +19,7 @@
 
     .nav-left, .nav-center, .nav-right {
         display: flex;
-        align-items: center; /* Aligns items on the cross-axis */
+        align-items: center; 
     }
 
     .nav-right{
@@ -27,8 +27,8 @@
     }
 
     .nav-center {
-        flex-grow: 1; /* Allows the center section to grow */
-        justify-content: center; /* Centers items in the middle */
+        flex-grow: 1; 
+        justify-content: center; 
     }
 
     li a,h4, li form {
@@ -39,7 +39,6 @@
         text-decoration: none;
     }
 
-    /* Adjusted styles for input elements */
     li form input[type="text"], li form input[type="submit"] {
         padding: 0;
         background: #fff;
@@ -49,7 +48,7 @@
     }
 
     li form input[type="text"] {
-      padding: 0px 0px 0px 20px; /* Increased left padding */
+      padding: 0px 0px 0px 20px;
         width: 400px;
     }
 
@@ -65,7 +64,7 @@
     }
 
     .active-link {
-    border-bottom: 2px solid white; /* Adjust thickness as needed */
+    border-bottom: 2px solid white; 
 }
   
 .nav-item.active {

@@ -4,10 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
-
     <style>
 
-/* General styling */
+
 body {
     /* font-family: Arial, sans-serif; */
     background-color: #f4f4f4;
@@ -15,7 +14,6 @@ body {
     padding: 0; */
 }
 
-/* Styles the form */
 #askQuestionForm {
     background-color: #ffffff;
     max-width: 800px;
@@ -32,57 +30,51 @@ body {
 }
 
 .form-group {
-    margin-bottom: 30px; /* Increase space between form groups */
+    margin-bottom: 30px; 
 }
 
-/* Styles the labels */
 .form-group label {
     display: block;
-    margin-bottom: 5px; /* Reduced space between label and input */
+    margin-bottom: 5px; 
     font-size: 16px;
-    font-weight: bold; /* Optional: makes the label text bold */
+    font-weight: bold; 
 }
 
-/* Styles inputs and textarea */
+
 .form-group input[type="text"],
 .form-group textarea {
     width: 100%;
     padding: 10px;
-    margin-top: 0; /* Removed top margin to bring label closer */
-    display: block; /* Ensures input takes a new line after label */
+    margin-top: 0; 
+    display: block; 
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     font-size: 16px;
 }
 
-/* Styles the file input */
 .form-group input[type="file"] {
     border: none;
     margin-top: 8px;
 }
 
-/* Styles the buttons */
 .button-group button,
 .button-group input[type="submit"] {
-    width: calc(50% - 4px); /* Adjusted width to account for the 1% margin on either side */
+    width: calc(50% - 4px); 
     padding: 10px;
-    margin: 8px 1%; /* Keep the margin to maintain spacing */
+    margin: 8px 1%; 
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    display: inline-block; /* This will place buttons side by side */
-    box-sizing: border-box; /* This ensures that padding and border are included in the width */
+    display: inline-block; 
+    box-sizing: border-box;
 }
 
-/* Additional CSS to ensure the buttons don't wrap */
 .button-group {
     white-space: nowrap;
     overflow: hidden;
 }
-
-
 
 .button-group button[type="reset"] {
     background-color: #f44336;
@@ -145,31 +137,31 @@ body {
             'submit': 'handleSubmit'
         },
         handleSubmit: function(event) {
-            event.preventDefault(); // Prevent default form submission
+            event.preventDefault(); 
 
             var formData = new FormData(this.el); // Serialize form data
 
             // Send AJAX request to the RESTful backend endpoint
             $.ajax({
-                url: 'http://localhost/TechOra/index.php/api/Questions/postQuestion', // Correct endpoint for RESTful API
+                url: 'http://localhost/TechOra/index.php/api/Questions/postQuestion', 
                 type: 'POST',
                 data: formData,
-                processData: false, // Prevent jQuery from processing the data
-                contentType: false, // Set content type to false for FormData
+                processData: false, 
+                contentType: false, 
                 success: function(response) {
-                    // Display the appropriate message from the response
+                 
                     var message = response.message;
-                    var color = response.status ? 'green' : 'red'; // Color code based on success or failure
+                    var color = response.status ? 'green' : 'red'; 
 
                     $('#message').text(message).css('color', color).show();
 
                     setTimeout(function() {
                         $('#message').hide();
                         if (response.status) {
-                            // Optionally redirect or perform further actions on success
-                           // window.location.href = 'http://localhost/TechOra/where_to_go_next';
+                            location.reload();
+                            alert("Answer Posted Successfully");
                         }
-                    }, 6000); // Hide message after 6 seconds
+                    }, 6000);
                 },
                 error: function(xhr, status, error) {
                     // Handle error
@@ -184,7 +176,7 @@ body {
         }
     });
 
-    // Instantiate the form view
+    // Instantiating the form view
     var formView = new FormView();
 </script>
 

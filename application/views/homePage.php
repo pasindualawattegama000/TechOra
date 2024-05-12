@@ -39,6 +39,10 @@
 
         .question-content {
             color: #666;
+            overflow: hidden;          
+            text-overflow: ellipsis;   
+            white-space: nowrap;       
+            max-width: 100%;           
         }
 
         .question-footer {
@@ -74,9 +78,15 @@
 
     <div id="question-section"></div>
 
+
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
+
+
+
+
     <script>
         var Question = Backbone.Model.extend({});
 
@@ -109,12 +119,12 @@
 
                 var fullName = question.get('first_name') + ' ' + question.get('last_name');
 
-                var answeredSpan = ''; // Initialize an empty string for the answered span
+                var answeredSpan = ''; 
                 if (question.get('is_answered')== 1) {
                     answeredSpan = '<span class="status answered">✔ Answered</span>';
                 }
 
-                // ++++++++++++++++++++++++++++++++++++++++DANGER+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+               
                 var questionHtml = `<div class="question">
                     <div class="question-header">
                         <span class="author">Posted by: ${fullName}</span>
@@ -157,8 +167,6 @@
             var questionsCollection = new QuestionsCollection();
             var questionsView = new QuestionsView({ collection: questionsCollection });
             var filterView = new FilterView({ questionsView: questionsView });
-
-            // Initial fetch to load latest questions as default
             filterView.filterQuestions('latest');
         });
     </script>

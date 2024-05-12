@@ -88,84 +88,81 @@
             <div class="form-field">
                 <input type="submit" value="Login">
             </div>
-            <p>Don't have an account? <a href="<?php echo site_url('Users/loadRegister'); ?>">Register Now</a></p>
+            <p>Don't have an account? <a href="<?php echo site_url('Navigation/loadRegister'); ?>">Register Now</a></p>
         </form>
 
     </div>
 
-
-    <script>
-    var PersonModel = Backbone.Model.extend({
+<script>
+    // Define a Backbone model for person data.
+    var UserModel = Backbone.Model.extend({
         defaults: {
             email: '',
             password: ''
         }
     });
 
+    // Define a Backbone view for handling the login form.
     var PersonView = Backbone.View.extend({
-        el: "#loginForm",
+        el: "#loginForm", // DOM element to bind the view.
         events: {
-            'submit': 'savePerson'
+            'submit': 'savePerson' 
         },
 
-        initialize: function(){
-            this.model = new PersonModel();
+        initialize: function() {
+            this.model = new UserModel(); 
         },
 
-        savePerson: function(event){
-            event.preventDefault();
+        savePerson: function(event) {
+            event.preventDefault(); 
+
             var email = this.$('#email').val();
             var password = this.$('#password').val();
 
+           
             this.model.set({email: email, password: password});
 
-            // Send data to the server
+            // AJAX call to send data to the server and handle responses.
             $.ajax({
                 url: 'http://localhost/TechOra/index.php/api/Users/login',
                 type: 'POST',
-                data: this.model.toJSON(),
+                data: this.model.toJSON(), // Convert model data to JSON for sending.
 
+                // Handle successful request.
                 success: function(response) {
-                    console.log('Request successfull');
-                    // console.log('Condition:', response.condition);
-                    // console.log('Session Data:', response.sessionData);
-
+                    console.log('Request successful');
                     $('#message').text(response.message).css('color', 'green').show();
-                    
                     window.location.href = 'http://localhost/TechOra/index.php/home';
-            
+
+       
                     setTimeout(function() {
                         $('#message').hide();
                     }, 10000); 
                 },
 
+                // Handle errors during the request.
                 error: function(xhr, status, error) {
-
                     var message = '';
                     var color = '';
 
                     if (error === 'Unauthorized') {
                         message = 'Invalid Email or Password';
                         color = 'red';
-                
                     } else {
                         message = 'Validation Errors';
                         color = 'black';
                     }
-                
-                $('#message').text('Registration failed: ' + message).css('color', 'red').show();
+
+                    $('#message').text('Registration failed: ' + message).css('color', color).show();
                 }
             });
         },
     });
 
+    // Instantiate the view.
     var personView = new PersonView();
 
-
-    </script>
-
-
-
+</script>
 
 
 </body>

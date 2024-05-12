@@ -95,7 +95,7 @@
 
 
     <script>
-    var PersonModel = Backbone.Model.extend({
+    var UserModel = Backbone.Model.extend({
         defaults: {
             email: '',
             password: ''
@@ -109,7 +109,7 @@
         },
 
         initialize: function(){
-            this.model = new PersonModel();
+            this.model = new UserModel();
         },
 
         savePerson: function(event){

@@ -152,16 +152,16 @@ class Questions extends CI_Controller {
             // Fetch questions based on the filter
             switch ($filter) {
                 case 'top':
-                    $questions = $this->QuestionModel->get_top_questions();
+                    $questions = $this->QuestionModel->FilterTopQuestions();
                     break;
                 case 'latest':
-                    $questions = $this->QuestionModel->get_latest_questions();
+                    $questions = $this->QuestionModel->FilterLatestQuestions();
                     break;
                 case 'unanswered':
-                    $questions = $this->QuestionModel->get_unanswered_questions();
+                    $questions = $this->QuestionModel->FilterUnansweredQuestions();
                     break;
                 default:
-                    $questions = $this->QuestionModel->get_questions(); // Fetch all questions by default
+                    $questions = $this->QuestionModel->getQuestions(); // Fetch all questions by default
                     break;
             }
         
