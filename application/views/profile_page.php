@@ -4,85 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechOra Profile</title>
-    <style>
-        #profile-section {
-            background-color: #f5f5f5;
-            border: 2px solid #bbb;
-            padding: 20px;
-            margin: 20px;
-        }
 
-        .profile-header {
-            text-align: center;
-            margin-bottom: 20px;
-        }
-
-        .profile-header img {
-            width: 100px;
-            padding-bottom: 10px;
-        }
-
-        .profile-header h1 {
-            padding-bottom: 10px;
-        }
-
-        .questions-answers {
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .questions, .answers {
-            width: 48%;
-            background-color: #fff;
-            border: 1px solid #ccc;
-            padding: 10px;
-        }
-
-        .question, .answer {
-            border: 1px solid #ccc;
-            padding: 10px;
-            margin-top: 10px;
-        }
+    
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/profilePageStyles.css'); ?>">
 
 
-        .question-title, .answer-content {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .question p, .answer-content {
-            overflow: hidden;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            max-width: 100%; 
-        }
-
-        .status {
-            color: green;
-            font-weight: bold;
-        }
-
-        .delete-question , .delete-answer{
-            background-color: #d9534f; 
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            transition: background-color 0.3s ease;
-        }
-
-        .delete-question:hover {
-            background-color: #c9302c;
-        }
-
-        .delete-answer:hover {
-            background-color: #c9302c;
-        }
-
-
-    </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 </head>
 <body>

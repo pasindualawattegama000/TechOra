@@ -4,69 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>TechOra Questions</title>
-    <style>
-        #welcome-section {
-            border: 1px solid #ccc;
-            padding: 20px;
-            margin-bottom: 20px;
-            text-align: center;
-        }
 
-        #question-section {
-            background-color: #f5f5f5;
-            border: 2px solid #bbb;
-            padding: 20px;
-            margin: 20px;
-        }
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/homePageStyles.css'); ?>">
 
-        .question {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding: 15px;
-        }
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
 
-        .question-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-
-        .question-title {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .question-content {
-            color: #666;
-            overflow: hidden;          
-            text-overflow: ellipsis;   
-            white-space: nowrap;       
-            max-width: 100%;           
-        }
-
-        .question-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        .status.answered {
-            color: green;
-            font-weight: bold;
-        }
-
-        #filter-buttons {
-            /* background-color: #f5f5f5;
-            border: 2px solid #bbb; */
-            padding-left: 79%;
-            /* margin: 20px; */
-           
-        }
-
-    </style>
 </head>
+
 <body>
     <div id="welcome-section">
         <h1 class="welcome">Welcome To TechOra</h1>
@@ -82,12 +29,6 @@
 
     <div id="question-section"></div>
     <div>
-
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.13.1/underscore-min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/backbone.js/1.4.0/backbone-min.js"></script>
-
 
 
 

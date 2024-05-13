@@ -4,47 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Search Results</title>
-    <style>
-        .search-results-section {
-            background-color: #f5f5f5;
-            border: 2px solid #bbb;
-            padding: 20px;
-            margin: 20px;
-        }
 
-        .result {
-            background-color: #fff;
-            border: 1px solid #ccc;
-            margin-bottom: 10px;
-            padding: 15px;
-        }
 
-        .result-header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
+    <!-- Link to external CSS file -->
+    <link rel="stylesheet" href="<?php echo base_url('assets/css/searchResultsStyles.css'); ?>">
 
-        .result-title {
-            font-size: 18px;
-            color: #333;
-        }
-
-        .result-content {
-            color: #666;
-        }
-
-        .result-footer {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 10px;
-            font-size: 14px;
-        }
-
-        h2{
-            padding:20px;
-        }
-    </style>
 </head>
 <body>
 <h2>Search Results for "<?php echo $searchedFor ?>"</h2>

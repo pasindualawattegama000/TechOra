@@ -1,0 +1,107 @@
+
+body {
+    /* font-family: Arial, sans-serif; */
+    background-color: #f4f4f4;
+    /* margin: 20px;
+    padding: 0; */
+}
+
+#askQuestionForm {
+    background-color: #ffffff;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 2%;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.form-group,
+.button-group {
+    margin-bottom: 15px;
+}
+
+.form-group {
+    margin-bottom: 30px; 
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px; 
+    font-size: 16px;
+    font-weight: bold; 
+}
+
+
+.form-group input[type="text"],
+.form-group textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 0; 
+    display: block; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-size: 16px;
+}
+
+.form-group input[type="file"] {
+    border: none;
+    margin-top: 8px;
+}
+
+.button-group button,
+.button-group input[type="submit"] {
+    width: calc(50% - 4px); 
+    padding: 10px;
+    margin: 8px 1%; 
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 16px;
+    display: inline-block; 
+    box-sizing: border-box;
+}
+
+.button-group {
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.button-group button[type="reset"] {
+    background-color: #f44336;
+    color: white;
+}
+
+.button-group input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.button-group button[type="reset"]:hover,
+.button-group input[type="submit"]:hover {
+    opacity: 0.9;
+}
+
+
+#message {
+    padding: 10px;
+    margin-top: 10px;
+    border-radius: 5px;
+    display: none;
+}
+
+#message.success {
+    color: green;
+    border: 2px solid green; 
+    background-color: #f0fff0; 
+}
+
+
+#message.error {
+    color: red;
+    border: 2px solid red; 
+    background-color: #fff0f0; /
+}
+
+
